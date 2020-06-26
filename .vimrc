@@ -117,8 +117,8 @@ let g:go_highlight_operators = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_build_contraints = 1
 let g:go_highlight_generate_tags = 1
-let g:go_highlight_space_tab_error = 0
-let g:go_highlight_array_whitespace_error = 1
+let g:go_highlight_space_tab_error = 1
+let g:go_highlight_array_whitespace_error = 0
 let g:go_highlight_trailing_whitespace_error = 0
 let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck', 'deadcode']
 let g:go_metalinter_autosave = 0
@@ -164,7 +164,7 @@ let g:ale_echo_msg_format = '%s'
 let g:ale_echo_msg_warning_str = 'Warning'
 let g:ale_echo_msg_error_str = 'Error'
 let g:ale_enabled = 1
-let g:ale_linters = {"go": ['go vet', 'go build']}
+let g:ale_linters = {"go": ['golint', 'go build', 'gofmt', 'go vet', 'gopls']}
 let g:ale_linters_explicit = 0
 let g:ale_linter_aliases = {}
 let g:ale_lint_delay = 200
@@ -177,17 +177,20 @@ let g:ale_set_loclist = 1
 let g:ale_set_quickfix = 0
 let g:ale_set_signs = 1
 let g:ale_sign_column_always = 0
-let g:ale_sign_error = '✗'
-let g:ale_sign_info = '⚠'
+let g:ale_sign_error = '💣'
+let g:ale_sign_warning = '⚡︎'
 let g:ale_sign_offset = 1000000
 let g:ale_sign_style_error = '✗'
 let g:ale_sign_style_warning = '⚠'
-let g:ale_sign_highlight_linenrs = 0
+let g:ale_sign_highlight_linenrs = 1
 let g:ale_statusline_format = ['%d error(s)', '%d warning(s)', 'OK']
 let g:ale_type_map = {}
 let g:ale_virtualtext_cursor = 0
-let g:ale_warn_about_trailing_whitespace = 1
-let g:ale_warn_about_trailing_blank_lines = 1
+let g:ale_warn_about_trailing_whitespace = 0
+let g:ale_warn_about_trailing_blank_lines = 0
+let g:ale_change_sign_column_color = 1 
+highlight! ALESignColumnWithErrors ctermfg=0 ctermbg=8 guifg=#4a4a4a guibg=#4a4a4a
+highlight! ALESignColumnWithoutErrors ctermfg=0 ctermbg=0 guifg=#4a4a4a guibg=#4a4a4a
 
 " ================== Airline ==============
 let g:airline#extensions#ale#enabled = 1
