@@ -1,0 +1,11 @@
+#!/usr/bin/bash bash
+
+export EDITOR='vim'
+
+### Go
+export GOPATH=$HOME/Projects/go
+export GOBIN=$HOME/Projects/go/bin
+export PATH=$PATH:$(go env GOPATH)/bin
+export GO111MODULE=auto
+
+

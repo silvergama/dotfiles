@@ -1,0 +1,80 @@
+[alias]
+    co = checkout
+
+	ci = commit
+    
+    cia = commit --amend
+    
+    br = branch
+    
+    hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph
+    
+    s = status -sb
+    
+    tags = tag -l
+    
+    branchs = branch -a
+    
+    remotes = remote -v
+    
+    logs = log --oneline
+    
+    lg = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+    
+    ap = "!sh -c 'git add --all && git pull \"$0\" master ' "
+    
+    conflicts = diff --name-only --diff-filter=U
+    
+    clean-branchs = "!git branch | grep -v master | xargs git branch -D"
+    
+    # Amend the currently staged files to the latest commit
+    amend = commit --amend --reuse-message=HEAD
+
+    d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+
+[color]
+	ui = auto
+
+[color "branch"]
+	current = yellow bold
+
+    local = green bold
+    
+    remote = cyan bold
+
+[color "diff"]
+    meta = yellow bold
+    
+    frag = magenta bold
+    
+    old = red bold
+    
+    new = green bold
+    
+    whitespace = red reverse
+
+[color "status"]
+
+    added = green bold
+    
+    changed = yellow bold
+    
+    untracked = red bold
+
+[push]
+
+    default = simple
+
+[filter "lfs"]
+
+    process = git-lfs filter-process
+    
+    required = true
+    
+    clean = git-lfs clean -- %f
+    
+    smudge = git-lfs smudge -- %f
+
+[credential]
+
+    helper = store
