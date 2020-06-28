@@ -25,7 +25,7 @@ vim/plugins:
 		&& git clone https://github.com/tpope/vim-vinegar.git \
 		&& git clone https://tpope.io/vim/fugitive.git \
 		&& git clone https://github.com/junegunn/fzf.vim.git \
-		&& git clone --depth 1 https://github.com/dense-analysis/ale.git /
+		&& git clone --depth 1 https://github.com/dense-analysis/ale.git \
 		&& git clone https://github.com/iamcco/markdown-preview.vim.git
 
 vim/themes:
