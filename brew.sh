@@ -25,3 +25,6 @@ brew install findutils
 
 # Install FZF
 brew install fzf
+
+# Install tig
+brew install tig

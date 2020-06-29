@@ -41,4 +41,43 @@ function fs() {
 	fi;
 }
 
+function getJobs()
+{
+   kubectl get jobs -n properties
+}
 
+function deleteJob()
+{
+    kubectl delete job -n properties $1
+}
+
+function getPods() {
+    kubectl get pods -n properties
+}
+
+function getLogs()
+{
+    kubectl logs -f -n properties $1
+}
+
+gocover () {
+	t="/tmp/go-cover.$$.tmp"
+	go test -coverprofile=$t $@ && \
+	go tool cover -html=$t && \
+    rm $t
+}
+
+function gitstash() {
+    git stash push -m "zsh_stash_name_$1"
+}
+
+function gitstashapply() {
+    git stash apply $(git stash list | grep "zsh_stash_name_$1" | cut -d: -f1)
+}
+
+function gitstashpop() {
+    git stash pop $(git stash list | grep "zsh_stash_name_$1" | cut -d: -f1)
+}
+function gitstashdrop() {
+    git stash drop $(git stash list | grep "zsh_stash_name_$1" | cut -d: -f1)
+}
