@@ -8,4 +8,5 @@ export GOBIN=$HOME/Projects/go/bin
 export PATH=$PATH:$(go env GOPATH)/bin
 export GO111MODULE=auto
 
-
+export LC_CTYPE=C 
+export LANG=C

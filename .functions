@@ -1,20 +1,5 @@
 #!/bin/sh
 
-function gitsync() {
-    git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D
-}
-
-function greview() {
-    git fetch -u origin pull/$1/head:pr$1 & \
-    git checkout pr$1
-}
-
-function gdreview() {
-    git checkout master & \
-    git branch -D pr$1 & \
-    git checkout -
-}
-
 gocover () {
 	t="/tmp/go-cover.$$.tmp"
 	go test -flags="all" -coverprofile=$t $@ && \
@@ -41,13 +26,44 @@ function fs() {
 	fi;
 }
 
-function getJobs()
-{
+function replaces(){
+    # 1 find
+    # 2 replace
+    # 3 file type
+    # 4 path
+    grep -lr --include='$3' "$1" $4 | xargs sed -i '' -e 's/$1/$2/g'
+}
+
+function replace() {
+while getopts ":s:r:f:p:" opt; do
+  case $opt in
+    s) search="$OPTARG"
+    ;;
+    r) replace="$OPTARG"
+    ;;
+    f) file_type="$OPTARG"
+    ;;
+    p) path="$OPTARG"
+    ;;
+    \?) echo "Invalid option -$OPTARG" >&2
+    ;;
+  esac
+done
+# grep -lr --include='$file_type' "$search" $4 | xargs sed -i '' -e 's/$serch/$replace/g'
+
+printf  "Argument s is %s\n" "$s"
+printf  "Argument r is %s\n" "$r"
+printf  "Argument f is %s\n" "$f"
+printf  "Argument o is %s\n" "$p"
+}
+
+###################### K8S functions ######################
+
+function getJobs(){
    kubectl get jobs -n properties
 }
 
-function deleteJob()
-{
+function deleteJob(){
     kubectl delete job -n properties $1
 }
 
@@ -55,29 +71,38 @@ function getPods() {
     kubectl get pods -n properties
 }
 
-function getLogs()
-{
+function getLogs(){
     kubectl logs -f -n properties $1
 }
 
-gocover () {
-	t="/tmp/go-cover.$$.tmp"
-	go test -coverprofile=$t $@ && \
-	go tool cover -html=$t && \
-    rm $t
+###################### Git functions ######################
+function gitsync() {
+    git remote prune origin & \
+    git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D
 }
 
-function gitstash() {
+function greview() {
+    git fetch -u origin pull/$1/head:pr$1 & \
+    git checkout pr$1
+}
+
+function gdreview() {
+    git checkout master & \
+    git branch -D pr$1 & \
+    git checkout -
+}
+
+function gstash() {
     git stash push -m "zsh_stash_name_$1"
 }
 
-function gitstashapply() {
+function gstashapply() {
     git stash apply $(git stash list | grep "zsh_stash_name_$1" | cut -d: -f1)
 }
 
-function gitstashpop() {
+function gstashpop() {
     git stash pop $(git stash list | grep "zsh_stash_name_$1" | cut -d: -f1)
 }
-function gitstashdrop() {
+function gstashdrop() {
     git stash drop $(git stash list | grep "zsh_stash_name_$1" | cut -d: -f1)
 }
