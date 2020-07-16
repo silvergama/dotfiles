@@ -36,14 +36,14 @@ function replaces(){
 
 function replace() {
 while getopts ":s:r:f:p:" opt; do
-  case $opt in
-    s) search="$OPTARG"
+case $opt in
+    s) rp_search=$OPTARG
     ;;
-    r) replace="$OPTARG"
+    r) rp_replace=$OPTARG
     ;;
-    f) file_type="$OPTARG"
+    f) rp_file_type=$OPTARG
     ;;
-    p) path="$OPTARG"
+    p) rp_path=$OPTARG
     ;;
     \?) echo "Invalid option -$OPTARG" >&2
     ;;
@@ -51,10 +51,7 @@ while getopts ":s:r:f:p:" opt; do
 done
 # grep -lr --include='$file_type' "$search" $4 | xargs sed -i '' -e 's/$serch/$replace/g'
 
-printf  "Argument s is %s\n" "$s"
-printf  "Argument r is %s\n" "$r"
-printf  "Argument f is %s\n" "$f"
-printf  "Argument o is %s\n" "$p"
+printf  "grep -lr --include='$rp_file_type' '$rp_search' $rp_path | xargs sed -i '' -e 's/$rp_search/$rp_replace/g'"
 }
 
 ###################### K8S functions ######################

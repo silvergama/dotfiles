@@ -276,6 +276,8 @@ nnoremap <silent> <leader><space> :noh<cr>
 "" Switching windows
 noremap <C-l> <C-w>l
 noremap <C-h> <C-w>h
+" noremap <C-j> <C-w>j
+" noremap <C-k> <C-w>k
 
 "" Vmap for maintain Visual Mode after shifting > and <
 vmap < <gv
