@@ -26,34 +26,6 @@ function fs() {
 	fi;
 }
 
-function replaces(){
-    # 1 find
-    # 2 replace
-    # 3 file type
-    # 4 path
-    grep -lr --include='$3' "$1" $4 | xargs sed -i '' -e 's/$1/$2/g'
-}
-
-function replace() {
-while getopts ":s:r:f:p:" opt; do
-case $opt in
-    s) rp_search=$OPTARG
-    ;;
-    r) rp_replace=$OPTARG
-    ;;
-    f) rp_file_type=$OPTARG
-    ;;
-    p) rp_path=$OPTARG
-    ;;
-    \?) echo "Invalid option -$OPTARG" >&2
-    ;;
-  esac
-done
-# grep -lr --include='$file_type' "$search" $4 | xargs sed -i '' -e 's/$serch/$replace/g'
-
-printf  "grep -lr --include='$rp_file_type' '$rp_search' $rp_path | xargs sed -i '' -e 's/$rp_search/$rp_replace/g'"
-}
-
 ###################### K8S functions ######################
 
 function getJobs(){
