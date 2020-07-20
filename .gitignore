@@ -15,6 +15,3 @@ Thumbs.db
 
 # file with all tokens
 .tokens
-
-# unversioned configs
-.extra
