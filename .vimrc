@@ -164,7 +164,23 @@ let g:ale_echo_msg_format = '%s'
 let g:ale_echo_msg_warning_str = 'Warning'
 let g:ale_echo_msg_error_str = 'Error'
 let g:ale_enabled = 1
-let g:ale_linters = {"go": ['golint', 'go build', 'gofmt', 'go vet', 'gopls']}
+" let g:ale_linters = {"go": ['golint', 'go build', 'gofmt', 'go vet', 'gopls', 'revive']}
+set filetype=html
+let g:ale_linters = {
+    \ "go": ['go build', 'gofmt', 'golangci-lint', 'gometalinter', 'govet', 'revive'],
+    \"javascript": ['eslint']
+    \}
+let g:ale_fixers = {
+    \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+    \ 'html': ['prettier'],
+    \ 'javascript': ['eslint', 'prettier'],
+    \ 'css' : ['stylelint', 'prettier'],           
+    \ 'go': ['gofmt'],
+    \ 'typescript': ['prettier', 'tslint'],
+    \ 'vue': ['eslint'],
+    \ 'scss': ['prettier'],
+    \}
+let g:ale_fix_on_save = 0
 let g:ale_linters_explicit = 0
 let g:ale_linter_aliases = {}
 let g:ale_lint_delay = 200
@@ -191,6 +207,15 @@ let g:ale_warn_about_trailing_blank_lines = 0
 let g:ale_change_sign_column_color = 1 
 highlight! ALESignColumnWithErrors ctermfg=0 ctermbg=8 guifg=#4a4a4a guibg=#4a4a4a
 highlight! ALESignColumnWithoutErrors ctermfg=0 ctermbg=0 guifg=#4a4a4a guibg=#4a4a4a
+
+" FORMATTERS
+au FileType javascript setlocal formatprg=prettier
+au FileType javascript.jsx setlocal formatprg=prettier
+au FileType typescript setlocal formatprg=prettier\ --parser\ typescript
+au FileType html setlocal formatprg=js-beautify\ --type\ html
+au FileType scss setlocal formatprg=prettier\ --parser\ css
+au FileType css setlocal formatprg=prettier\ --parser\ css
+
 
 " ================== Airline ==============
 let g:airline#extensions#ale#enabled = 1
