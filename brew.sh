@@ -28,3 +28,6 @@ brew install fzf
 
 # Install tig
 brew install tig
+
+# Install Tree
+brew install tree
