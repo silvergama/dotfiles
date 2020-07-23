@@ -130,7 +130,7 @@ let g:go_fmt_fail_silently = 1
 let g:go_auto_type_info = 1
 let g:go_addtags_transform = 'camelcase'
 let g:go_gopls_staticcheck = 1
-let g:go_list_type = 'locationlist'
+let g:go_list_type = 'quickfix'
 let g:go_auto_sameids = 1
 
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
@@ -147,7 +147,9 @@ augroup go
   au FileType go nmap <Leader>db <Plug>(go-doc-browser)
   au FileType go nmap <leader>r  <Plug>(go-run)
   au FileType go nmap <leader>t  <Plug>(go-test)
-  au FileType go nmap <Leader>gt <Plug>(go-coverage-toggle)
+  au FileType go nmap <Leader>s <Plug>(go-implements)
+  au FileType go nmap <leader>c <Plug>(go-coverage)
+  au FileType go nmap <Leader>ct <Plug>(go-coverage-toggle)
   au FileType go nmap <Leader>i <Plug>(go-info)
   au FileType go nmap <silent> <Leader>l <Plug>(go-metalinter)
   au FileType go nmap <C-g> :GoDecls<cr>

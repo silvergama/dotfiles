@@ -45,10 +45,23 @@ function getLogs(){
 }
 
 ###################### Git functions ######################
+function updateMaster() {
+    git checkout master
+    git fetch origin master
+    git reset --hard origin/master
+    git clean -df
+}
+
+function updateBranch() {
+    updateMaster  
+    git checkout -
+    git rebase master
+}
+
 function gitsync() {
-    git checkout master;
-    git remote prune origin;
-    git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D;
+    git checkout master
+    git remote prune origin
+    git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D
     git checkout -
 }
 
