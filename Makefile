@@ -11,6 +11,7 @@ install: vim/clean
 	sh brew.sh
 	$(MAKE) vim/plugins
 	$(MAKE) vim/themes
+	cd $(VIM_PLUGINS_PATH)/vim-prettier && npm install
 
 vim/clean: 
 	rm -rf $(VIM_PATH)/pack
@@ -26,7 +27,8 @@ vim/plugins:
 		&& git clone https://tpope.io/vim/fugitive.git \
 		&& git clone https://github.com/junegunn/fzf.vim.git \
 		&& git clone --depth 1 https://github.com/dense-analysis/ale.git \
-		&& git clone https://github.com/iamcco/markdown-preview.vim.git
+		&& git clone https://github.com/iamcco/markdown-preview.vim.git \
+		&& git clone https://github.com/prettier/vim-prettier
 
 vim/themes:
 	cd $(VIM_THEMES_PATH) \

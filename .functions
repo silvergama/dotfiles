@@ -1,6 +1,6 @@
 #!/bin/sh
 
-gocover () {
+function gocover () {
 	t="/tmp/go-cover.$$.tmp"
 	go test -flags="all" -coverprofile=$t $@ && \
 	go tool cover -html=$t && \
@@ -46,8 +46,10 @@ function getLogs(){
 
 ###################### Git functions ######################
 function gitsync() {
-    git remote prune origin & \
-    git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D
+    git checkout master;
+    git remote prune origin;
+    git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D;
+    git checkout -
 }
 
 function greview() {
