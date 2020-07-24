@@ -28,7 +28,8 @@ vim/plugins:
 		&& git clone https://github.com/junegunn/fzf.vim.git \
 		&& git clone --depth 1 https://github.com/dense-analysis/ale.git \
 		&& git clone https://github.com/iamcco/markdown-preview.vim.git \
-		&& git clone https://github.com/prettier/vim-prettier
+		&& git clone https://github.com/prettier/vim-prettier.git \
+		&& git clone git://github.com/wakatime/vim-wakatime.git
 
 vim/themes:
 	cd $(VIM_THEMES_PATH) \
