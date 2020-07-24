@@ -32,5 +32,3 @@ brew install tig
 # Install Tree
 brew install tree
 
-# Install Anaconda 
-brew cask install anaconda
