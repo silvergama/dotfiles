@@ -32,3 +32,5 @@ brew install tig
 # Install Tree
 brew install tree
 
+# Install github cli
+brew install github/gh/gh
