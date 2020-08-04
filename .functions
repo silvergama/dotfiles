@@ -47,7 +47,7 @@ function getLogs(){
 ###################### Git functions ######################
 function updateMaster() {
     git checkout master
-    git fetch origin master
+    git fetch --all
     git reset --hard origin/master
     git clean -df
 }
@@ -59,20 +59,20 @@ function updateBranch() {
 }
 
 function gitsync() {
-    git checkout master
-    git remote prune origin
-    git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D
+    git checkout master;
+    git remote prune origin;
+    git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D;
     git checkout -
 }
 
 function greview() {
-    git fetch -u origin pull/$1/head:pr$1 & \
+    git fetch -u origin pull/$1/head:pr$1;
     git checkout pr$1
 }
 
 function gdreview() {
-    git checkout master & \
-    git branch -D pr$1 & \
+    git checkout master;
+    git branch -D pr$1;
     git checkout -
 }
 
