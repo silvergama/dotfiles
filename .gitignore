@@ -15,3 +15,6 @@ Thumbs.db
 
 # file with all tokens
 .tokens
+
+# private data
+.private
