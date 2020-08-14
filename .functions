@@ -48,8 +48,8 @@ function getLogs(){
 function updateMaster() {
     git checkout master
     git fetch --all
-    git reset --hard origin/master
-    git clean -df
+    git reset --hard FETCH_HEAD
+    git pull
 }
 
 function updateBranch() {
