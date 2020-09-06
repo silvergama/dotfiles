@@ -160,7 +160,7 @@ augroup go
   au FileType go nmap <C-g> :GoDecls<cr>
   au FileType go imap <C-g> <esc>:<C-u>GoDecls<cr>
   au FileType go nmap <leader>rf :GoReferrers<cr>
-  au FileType go imap ;err <ESC>:GoIfErr<CR>O
+  au FileType go imap ;err <ESC>:GoIfErr<CR>
 augroup END
 
 " ale
