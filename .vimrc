@@ -335,4 +335,10 @@ nnoremap <C-tab>   :bnext<CR>
 nmap <c-j> :lnext<CR>
 nmap <c-k> :lprevious<CR>
 
+"" GitGutter
+nmap ]h <Plug>(GitGutterNextHunk)
+nmap [h <Plug>(GitGutterPrevHunk)
+nmap ghs <Plug>(GitGutterStageHunk)
+nmap ghu <Plug>(GitGutterUndoHunk)
+nmap ghp <Plug>(GitGutterPreviewHunk)
 
