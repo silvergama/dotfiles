@@ -172,7 +172,7 @@ let g:ale_enabled = 1
 " let g:ale_linters = {"go": ['golint', 'go build', 'gofmt', 'go vet', 'gopls', 'revive']}
 set filetype=html
 let g:ale_linters = {
-    \ "go": ['go build', 'gofmt', 'golangci-lint', 'gometalinter', 'govet', 'revive'],
+    \ "go": ['golint', 'go build', 'gofmt', 'go vet', 'gopls', 'revive'],
     \"javascript": ['eslint']
     \}
 let g:ale_fixers = {
