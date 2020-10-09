@@ -45,17 +45,10 @@ function getLogs(){
 }
 
 ###################### Git functions ######################
-function updateMaster() {
-    git checkout master
+function updateBranch() {
     git fetch --all
     git reset --hard FETCH_HEAD
     git pull
-}
-
-function updateBranch() {
-    updateMaster  
-    git checkout -
-    git rebase master
 }
 
 function gitsync() {
