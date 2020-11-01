@@ -8,3 +8,6 @@ export GOBIN=$HOME/Projects/go/bin
 export GOROOT="$(brew --prefix golang)/libexec"
 export PATH="$PATH:$GOPATH/bin:$GOROOT/bin"
 export GO111MODULE=auto
+
+export PATH=$PATH:$HOME/bin
+
