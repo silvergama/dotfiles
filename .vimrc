@@ -5,7 +5,6 @@ Plug 'sainnhe/sonokai'
 call plug#end()
 
 "========== User Interface Options ==========
-filetype off
 set ttyfast
 set laststatus=2
 set ruler
