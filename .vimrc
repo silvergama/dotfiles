@@ -1,16 +1,18 @@
+call plug#begin('~/.vim/plugged')
+
+Plug 'sainnhe/sonokai'
+
+call plug#end()
+
 "========== User Interface Options ==========
+filetype off
+set ttyfast
 set laststatus=2
 set ruler
 set number
 set noerrorbells
 set title
-"set termguicolors
-set background=dark
-colorscheme solarized8_high
 
-let g:solarized_termcolors=256
-set t_Co=256
-set term=xterm-256color
 
 "Text Rendering Options
 set fileencoding=utf-8
@@ -31,16 +33,33 @@ set showmode                    "Show current mode down the bottom
 set gcr=a:blinkon0
 set nolist
 set clipboard=unnamed
-"set spell
+set fileformats=unix,dos,mac " Prefer Unix over Windows over OS 9 formats
+set noshowmatch              " Do not show matching brackets by flickering
+set noshowmode               " We show the mode with airline or lightline
+set autoread                    " Automatically reread changed files without asking me anything
+
+set completeopt=menu,menuone
+set nocursorcolumn           " speed up syntax highlighting
+set nocursorline
+set updatetime=300
+set pumheight=10             " Completion window max size
+set conceallevel=2           " Concealed text is completely hidden
 
 "" Searching
-set hlsearch
-set incsearch
+set hlsearch " Highlight found searches
+set incsearch " Shows the match while typingh
 set ignorecase
 set smartcase
 
+set mouse=a                     "Enable mouse mode
 
-"set ignorecase
+" increase max memory to show syntax highlighting for large files
+set maxmempattern=20000
+
+" ~/.viminfo needs to be writable and readable. Set oldfiles to 1000 last
+" recently opened files, :FzfHistory uses it
+set viminfo='1000
+
 set splitright
 set splitbelow
 set lazyredraw " Avoid lags
@@ -213,7 +232,12 @@ let g:ale_change_sign_column_color = 1
 highlight! ALESignColumnWithErrors ctermfg=0 ctermbg=8 guifg=#4a4a4a guibg=#4a4a4a
 highlight! ALESignColumnWithoutErrors ctermfg=0 ctermbg=0 guifg=#4a4a4a guibg=#4a4a4a
 
-" FORMATTERS
+" ================= Colors =================
+"set termguicolors
+colorscheme solarized8_high
+set background=dark
+
+" ================ Formatters ===============
 au FileType javascript setlocal formatprg=prettier
 au FileType javascript.jsx setlocal formatprg=prettier
 au FileType typescript setlocal formatprg=prettier\ --parser\ typescript
