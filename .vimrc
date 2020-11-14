@@ -1,6 +1,9 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'sainnhe/sonokai'
+Plug 'fatih/molokai'
+
+Plug 'vim-airline/vim-airline-themes'
 
 call plug#end()
 
@@ -233,8 +236,17 @@ highlight! ALESignColumnWithoutErrors ctermfg=0 ctermbg=0 guifg=#4a4a4a guibg=#4
 
 " ================= Colors =================
 "set termguicolors
-colorscheme solarized8_high
+"colorscheme solarized8_high
+"set background=dark
+"let g:rehash256 = 1
+"colorscheme molokai
+" color
+syntax enable
+set t_Co=256
 set background=dark
+let g:molokai_original = 1
+let g:rehash256 = 1
+colorscheme molokai
 
 " ================ Formatters ===============
 au FileType javascript setlocal formatprg=prettier
@@ -248,7 +260,8 @@ au FileType css setlocal formatprg=prettier\ --parser\ css
 " ================== Airline ==============
 let g:airline#extensions#ale#enabled = 1
 let g:airline_powerline_fonts = 1
-let g:airline_theme='atomic'
+"let g:airline_theme='atomic'
+let g:airline_theme='simple'
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
@@ -276,8 +289,6 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
-
-
 
 " ================== SYNTASTIC ==============
 let g:syntastic_enable_signs = 1
@@ -350,6 +361,13 @@ map <c-n> :cnext<cr>
 map <c-m> :cprevious<cr>
 nnoremap <leader>a :cclose<cr>
 
+" Center the screen
+nnoremap <space> zz
+
+" Close all but the current one
+nnoremap <leader>o :only<CR>
+" Print full path
+map <C-f> :echo expand("%:p")<cr>
 
 nnoremap <C-S-tab> :bprevious<CR>
 nnoremap <C-tab>   :bnext<CR>
@@ -365,3 +383,87 @@ nmap ghs <Plug>(GitGutterStageHunk)
 nmap ghu <Plug>(GitGutterUndoHunk)
 nmap ghp <Plug>(GitGutterPreviewHunk)
 
+"=====================================================
+"===================== STATUSLINE ====================
+
+let s:modes = {
+      \ 'n': 'NORMAL',
+      \ 'i': 'INSERT',
+      \ 'R': 'REPLACE',
+      \ 'v': 'VISUAL',
+      \ 'V': 'V-LINE',
+      \ "\<C-v>": 'V-BLOCK',
+      \ 'c': 'COMMAND',
+      \ 's': 'SELECT',
+      \ 'S': 'S-LINE',
+      \ "\<C-s>": 'S-BLOCK',
+      \ 't': 'TERMINAL'
+      \}
+
+let s:prev_mode = ""
+function! StatusLineMode()
+  let cur_mode = get(s:modes, mode(), '')
+
+  " do not update higlight if the mode is the same
+  if cur_mode == s:prev_mode
+    return cur_mode
+  endif
+
+  if cur_mode == "NORMAL"
+    exe 'hi! StatusLine ctermfg=236'
+    exe 'hi! myModeColor cterm=bold ctermbg=148 ctermfg=22'
+  elseif cur_mode == "INSERT"
+    exe 'hi! myModeColor cterm=bold ctermbg=23 ctermfg=231'
+  elseif cur_mode == "VISUAL" || cur_mode == "V-LINE" || cur_mode == "V_BLOCK"
+    exe 'hi! StatusLine ctermfg=236'
+    exe 'hi! myModeColor cterm=bold ctermbg=208 ctermfg=88'
+  endif
+
+  let s:prev_mode = cur_mode
+  return cur_mode
+endfunction
+
+function! StatusLineFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+endfunction
+
+function! StatusLinePercent()
+  return (100 * line('.') / line('$')) . '%'
+endfunction
+
+function! StatusLineLeftInfo()
+ let branch = fugitive#head()
+ let filename = '' != expand('%:t') ? expand('%:t') : '[No Name]'
+ if branch !=# ''
+   return printf("%s | %s", branch, filename)
+ endif
+ return filename
+endfunction
+
+exe 'hi! myInfoColor ctermbg=240 ctermfg=252'
+
+" start building our statusline
+set statusline=
+
+" mode with custom colors
+set statusline+=%#myModeColor#
+set statusline+=%{StatusLineMode()}
+set statusline+=%*
+
+" left information bar (after mode)
+set statusline+=%#myInfoColor#
+set statusline+=\ %{StatusLineLeftInfo()}
+set statusline+=\ %*
+
+" go command status (requires vim-go)
+set statusline+=%#goStatuslineColor#
+set statusline+=%{go#statusline#Show()}
+set statusline+=%*
+
+" right section seperator
+set statusline+=%=
+
+" filetype, percentage, line number and column number
+set statusline+=%#myInfoColor#
+set statusline+=\ %{StatusLineFiletype()}\ %{StatusLinePercent()}\ %l:%v
+set statusline+=\ %*
