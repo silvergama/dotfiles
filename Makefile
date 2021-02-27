@@ -7,6 +7,8 @@ VIM_PLUGINS_PATH = $(VIM_PATH)/pack/plugins/start
 VIM_THEMES_PATH = $(VIM_PATH)/pack/themes/start
 
 install: vim/clean
+	curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	sh bootstrap.sh -f
 	sh brew.sh
 	cd $(VIM_PLUGINS_PATH)/vim-prettier && npm install

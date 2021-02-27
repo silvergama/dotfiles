@@ -1,6 +1,6 @@
 call plug#begin('~/.vim/plugged')
 
-# Plugins
+" Plugins
 Plug 'vim-airline/vim-airline' 
 Plug 'vim-syntastic/syntastic' 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
@@ -13,7 +13,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 
-# Themes
+" Themes
 Plug 'sainnhe/sonokai'
 Plug 'fatih/molokai'
 Plug 'vim-airline/vim-airline-themes'
@@ -198,7 +198,7 @@ augroup go
   au FileType go imap ;err <ESC>:GoIfErr<CR>
 augroup END
 
-" ale
+"=================== Ale =========================
 let g:ale_echo_cursor = 1
 let g:ale_echo_msg_format = '%s'
 let g:ale_echo_msg_warning_str = 'Warning'
@@ -248,13 +248,98 @@ let g:ale_change_sign_column_color = 1
 highlight! ALESignColumnWithErrors ctermfg=0 ctermbg=8 guifg=#4a4a4a guibg=#4a4a4a
 highlight! ALESignColumnWithoutErrors ctermfg=0 ctermbg=0 guifg=#4a4a4a guibg=#4a4a4a
 
+"=====================================================
+"===================== STATUSLINE ====================
+"=====================================================
+
+let s:modes = {
+      \ 'n': 'NORMAL',
+      \ 'i': 'INSERT',
+      \ 'R': 'REPLACE',
+      \ 'v': 'VISUAL',
+      \ 'V': 'V-LINE',
+      \ "\<C-v>": 'V-BLOCK',
+      \ 'c': 'COMMAND',
+      \ 's': 'SELECT',
+      \ 'S': 'S-LINE',
+      \ "\<C-s>": 'S-BLOCK',
+      \ 't': 'TERMINAL'
+      \}
+
+let s:prev_mode = ""
+function! StatusLineMode()
+  let cur_mode = get(s:modes, mode(), '')
+
+  " do not update higlight if the mode is the same
+  if cur_mode == s:prev_mode
+    return cur_mode
+  endif
+
+  if cur_mode == "NORMAL"
+    exe 'hi! StatusLine ctermfg=236'
+    exe 'hi! myModeColor cterm=bold ctermbg=148 ctermfg=22'
+  elseif cur_mode == "INSERT"
+    exe 'hi! myModeColor cterm=bold ctermbg=23 ctermfg=231'
+  elseif cur_mode == "VISUAL" || cur_mode == "V-LINE" || cur_mode == "V_BLOCK"
+    exe 'hi! StatusLine ctermfg=236'
+    exe 'hi! myModeColor cterm=bold ctermbg=208 ctermfg=88'
+  endif
+
+  let s:prev_mode = cur_mode
+  return cur_mode
+endfunction
+
+function! StatusLineFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+endfunction
+
+function! StatusLinePercent()
+  return (100 * line('.') / line('$')) . '%'
+endfunction
+
+function! StatusLineLeftInfo()
+ let branch = fugitive#head()
+ let filename = '' != expand('%:t') ? expand('%:t') : '[No Name]'
+ if branch !=# ''
+   return printf("%s | %s", branch, filename)
+ endif
+ return filename
+endfunction
+
+exe 'hi! myInfoColor ctermbg=240 ctermfg=252'
+
+" start building our statusline
+set statusline=
+
+" mode with custom colors
+set statusline+=%#myModeColor#
+set statusline+=%{StatusLineMode()}
+set statusline+=%*
+
+" left information bar (after mode)
+set statusline+=%#myInfoColor#
+set statusline+=\ %{StatusLineLeftInfo()}
+set statusline+=\ %*
+
+" go command status (requires vim-go)
+set statusline+=%#goStatuslineColor#
+set statusline+=%{go#statusline#Show()}
+set statusline+=%*
+
+" right section seperator
+set statusline+=%=
+
+" filetype, percentage, line number and column number
+set statusline+=%#myInfoColor#
+set statusline+=\ %{StatusLineFiletype()}\ %{StatusLinePercent()}\ %l:%v
+set statusline+=\ %*
+
 " ================= Colors =================
 syntax enable
 set background=dark
 let g:molokai_original = 1
 let g:rehash256 = 1
 colorscheme solarized8_high
-
 
 " ================ Formatters ===============
 au FileType javascript setlocal formatprg=prettier
@@ -360,7 +445,7 @@ vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
 "" Open current line on GitHub
-nnoremap <Leader>o :.Gbrowse<CR>
+nnoremap <Leader>gb :.Gbrowse<CR>
 
 nmap <c-s> :w<cr>
 imap <c-s> <esc>:w <cr>
@@ -390,89 +475,3 @@ nmap [h <Plug>(GitGutterPrevHunk)
 nmap ghs <Plug>(GitGutterStageHunk)
 nmap ghu <Plug>(GitGutterUndoHunk)
 nmap ghp <Plug>(GitGutterPreviewHunk)
-
-
-"=====================================================
-"===================== STATUSLINE ====================
-
-let s:modes = {
-      \ 'n': 'NORMAL',
-      \ 'i': 'INSERT',
-      \ 'R': 'REPLACE',
-      \ 'v': 'VISUAL',
-      \ 'V': 'V-LINE',
-      \ "\<C-v>": 'V-BLOCK',
-      \ 'c': 'COMMAND',
-      \ 's': 'SELECT',
-      \ 'S': 'S-LINE',
-      \ "\<C-s>": 'S-BLOCK',
-      \ 't': 'TERMINAL'
-      \}
-
-let s:prev_mode = ""
-function! StatusLineMode()
-  let cur_mode = get(s:modes, mode(), '')
-
-  " do not update higlight if the mode is the same
-  if cur_mode == s:prev_mode
-    return cur_mode
-  endif
-
-  if cur_mode == "NORMAL"
-    exe 'hi! StatusLine ctermfg=236'
-    exe 'hi! myModeColor cterm=bold ctermbg=148 ctermfg=22'
-  elseif cur_mode == "INSERT"
-    exe 'hi! myModeColor cterm=bold ctermbg=23 ctermfg=231'
-  elseif cur_mode == "VISUAL" || cur_mode == "V-LINE" || cur_mode == "V_BLOCK"
-    exe 'hi! StatusLine ctermfg=236'
-    exe 'hi! myModeColor cterm=bold ctermbg=208 ctermfg=88'
-  endif
-
-  let s:prev_mode = cur_mode
-  return cur_mode
-endfunction
-
-function! StatusLineFiletype()
-  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
-endfunction
-
-function! StatusLinePercent()
-  return (100 * line('.') / line('$')) . '%'
-endfunction
-
-function! StatusLineLeftInfo()
- let branch = fugitive#head()
- let filename = '' != expand('%:t') ? expand('%:t') : '[No Name]'
- if branch !=# ''
-   return printf("%s | %s", branch, filename)
- endif
- return filename
-endfunction
-
-exe 'hi! myInfoColor ctermbg=240 ctermfg=252'
-
-" start building our statusline
-set statusline=
-
-" mode with custom colors
-set statusline+=%#myModeColor#
-set statusline+=%{StatusLineMode()}
-set statusline+=%*
-
-" left information bar (after mode)
-set statusline+=%#myInfoColor#
-set statusline+=\ %{StatusLineLeftInfo()}
-set statusline+=\ %*
-
-" go command status (requires vim-go)
-set statusline+=%#goStatuslineColor#
-set statusline+=%{go#statusline#Show()}
-set statusline+=%*
-
-" right section seperator
-set statusline+=%=
-
-" filetype, percentage, line number and column number
-set statusline+=%#myInfoColor#
-set statusline+=\ %{StatusLineFiletype()}\ %{StatusLinePercent()}\ %l:%v
-set statusline+=\ %*
