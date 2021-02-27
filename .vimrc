@@ -1,9 +1,23 @@
 call plug#begin('~/.vim/plugged')
 
+# Plugins
+Plug 'vim-airline/vim-airline' 
+Plug 'vim-syntastic/syntastic' 
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'tpope/vim-vinegar'
+Plug 'dense-analysis/ale'
+Plug 'iamcco/markdown-preview.vim'
+Plug 'prettier/vim-prettier'
+Plug 'wakatime/vim-wakatime'
+Plug 'airblade/vim-gitgutter'
+Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-fugitive'
+
+# Themes
 Plug 'sainnhe/sonokai'
 Plug 'fatih/molokai'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'vim-airline/vim-airline-themes'
+Plug 'lifepillar/vim-solarized8'
 
 call plug#end()
 
@@ -190,7 +204,7 @@ let g:ale_echo_msg_format = '%s'
 let g:ale_echo_msg_warning_str = 'Warning'
 let g:ale_echo_msg_error_str = 'Error'
 let g:ale_enabled = 1
-" let g:ale_linters = {"go": ['golint', 'go build', 'gofmt', 'go vet', 'gopls', 'revive']}
+
 set filetype=html
 let g:ale_linters = {
     \ "go": ['golint', 'go build', 'gofmt', 'go vet', 'gopls', 'revive'],
@@ -235,18 +249,12 @@ highlight! ALESignColumnWithErrors ctermfg=0 ctermbg=8 guifg=#4a4a4a guibg=#4a4a
 highlight! ALESignColumnWithoutErrors ctermfg=0 ctermbg=0 guifg=#4a4a4a guibg=#4a4a4a
 
 " ================= Colors =================
-"set termguicolors
-"colorscheme solarized8_high
-"set background=dark
-"let g:rehash256 = 1
-"colorscheme molokai
-" color
 syntax enable
-set t_Co=256
 set background=dark
 let g:molokai_original = 1
 let g:rehash256 = 1
-colorscheme molokai
+colorscheme solarized8_high
+
 
 " ================ Formatters ===============
 au FileType javascript setlocal formatprg=prettier
@@ -306,7 +314,7 @@ let g:syntastic_auto_loc_list = 1
 set rtp+=/usr/local/opt/fzf
 
 "================== Abbreviations ====================
-"" no one is really happy until you have this shortcuts
+" no one is really happy until you have this shortcuts
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
 cnoreabbrev Qall! qall!
@@ -382,6 +390,7 @@ nmap [h <Plug>(GitGutterPrevHunk)
 nmap ghs <Plug>(GitGutterStageHunk)
 nmap ghu <Plug>(GitGutterUndoHunk)
 nmap ghp <Plug>(GitGutterPreviewHunk)
+
 
 "=====================================================
 "===================== STATUSLINE ====================
