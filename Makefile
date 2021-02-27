@@ -22,7 +22,6 @@ vim/plugins:
 	cd $(VIM_PLUGINS_PATH) \
 		&& git clone https://github.com/vim-airline/vim-airline.git \
 		&& git clone https://github.com/vim-syntastic/syntastic.git \
-		&& git clone https://github.com/fatih/vim-go.git \
 		&& git clone https://github.com/tpope/vim-vinegar.git \
 		&& git clone https://tpope.io/vim/fugitive.git \
 		&& git clone https://github.com/junegunn/fzf.vim.git \

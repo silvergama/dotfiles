@@ -2,7 +2,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'sainnhe/sonokai'
 Plug 'fatih/molokai'
-
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'vim-airline/vim-airline-themes'
 
 call plug#end()
@@ -14,7 +14,6 @@ set ruler
 set number
 set noerrorbells
 set title
-
 
 "Text Rendering Options
 set fileencoding=utf-8
@@ -168,8 +167,9 @@ augroup go
   au FileType go nmap <Leader>dd <Plug>(go-def-vertical)
   au FileType go nmap <Leader>dv <Plug>(go-doc-vertical)
   au FileType go nmap <Leader>db <Plug>(go-doc-browser)
-  au FileType go nmap <leader>r  <Plug>(go-run)
-  au FileType go nmap <leader>t  <Plug>(go-test)
+  au FileType go nmap <leader>r <Plug>(go-run)
+  au FileType go nmap <leader>t <Plug>(go-test)
+  au FileType go nmap <leader>tf :GoTestFunc<cr>
   au FileType go nmap <Leader>s <Plug>(go-implements)
   au FileType go nmap <leader>c <Plug>(go-coverage)
   au FileType go nmap <Leader>ct <Plug>(go-coverage-toggle)
