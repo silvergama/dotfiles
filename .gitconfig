@@ -64,6 +64,9 @@
 [push]
 
     default = simple
+    
+[pull]
+    ff = only
 
 [filter "lfs"]
 

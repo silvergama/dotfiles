@@ -5,7 +5,6 @@ export EDITOR='vim'
 ### Go
 export GOPATH=$HOME/Projects/go
 export GOBIN=$HOME/Projects/go/bin
-export GO111MODULE=auto
+export GO111MODULE=on
 export GOROOT=/usr/local/go
-
 export PKG_CONFIG_PATH=/usr/local/opt/openssl/lib/pkgconfig
