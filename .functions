@@ -52,7 +52,7 @@ function updateBranch() {
 }
 
 function gitsync() {
-    git checkout master;
+    git checkout $1;
     git remote prune origin;
     git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D;
     git checkout -
@@ -61,12 +61,6 @@ function gitsync() {
 function greview() {
     git fetch -u origin pull/$1/head:pr$1;
     git checkout pr$1
-}
-
-function gdreview() {
-    git checkout master;
-    git branch -D pr$1;
-    git checkout -
 }
 
 function gstash() {
