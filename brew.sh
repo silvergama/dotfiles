@@ -12,6 +12,8 @@ else
     brew upgrade
 fi
 
+#Install ZSH
+brew install zsh zsh-autosuggestions zsh-syntax-highlighting
 
 # Install GNU core utilities (those that come with macOS are outdated).
 # Don’t forget to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.
@@ -33,4 +35,9 @@ brew install tig
 brew install tree
 
 # Install github cli
-brew install github/gh/gh
+brew install gh
+
+# Install vim
+brew install vim
+
+

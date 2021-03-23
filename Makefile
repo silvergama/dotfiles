@@ -1,17 +1,25 @@
 .PHONY: install
+.PHONY: source
 
 # Configuration
 user-nick = $(USER)
 VIM_PATH = ~/.vim
-VIM_PLUGINS_PATH = $(VIM_PATH)/pack/plugins/start
-VIM_THEMES_PATH = $(VIM_PATH)/pack/themes/start
 
 install: vim/clean
+	@make shell-command
+	@make curl-command
+	@make source
+
+curl-command:
 	curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	sh bootstrap.sh -f
+
+shell-command:
 	sh brew.sh
-	cd $(VIM_PLUGINS_PATH)/vim-prettier && npm install
+	sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+source:
+	sh bootstrap.sh -f
 
 vim/clean: 
 	rm -rf $(VIM_PATH)/backups

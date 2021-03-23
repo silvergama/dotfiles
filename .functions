@@ -29,19 +29,19 @@ function fs() {
 ###################### K8S functions ######################
 
 function getJobs(){
-   kubectl get jobs -n properties
+   kubectl get jobs -n $1
 }
 
 function deleteJob(){
-    kubectl delete job -n properties $1
+    kubectl delete job -n $1 $2
 }
 
 function getPods() {
-    kubectl get pods -n properties
+    kubectl get pods -n $1
 }
 
 function getLogs(){
-    kubectl logs -f -n properties $1
+    kubectl logs -f -n $1 $2
 }
 
 ###################### Git functions ######################
@@ -56,11 +56,6 @@ function gitsync() {
     git remote prune origin;
     git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D;
     git checkout -
-}
-
-function greview() {
-    git fetch -u origin pull/$1/head:pr$1;
-    git checkout pr$1
 }
 
 function gstash() {
