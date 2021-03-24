@@ -13,7 +13,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'jiangmiao/auto-pairs'
-Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
 " Themes
 Plug 'sainnhe/sonokai'
@@ -23,72 +22,132 @@ Plug 'lifepillar/vim-solarized8'
 
 call plug#end()
 
+
+"===========================================================
+" SETTINGS
+"===========================================================
+
+" Enable syntax highlighting.
+"
+syntax on
+
+
+" General vim settings.
+"
+set autoindent        " Indented text
+set autoread          " Pick up external changes to files
+set autowrite         " Write files when navigating with :next/:previous
+set backspace=indent,eol,start  "Allow backspace in insert mode
+set belloff=all       " Bells are annoying
+set breakindent       " Wrap long lines *with* indentation
+set breakindentopt=shift:2
+if has('unnamedplus') " Copy to/from system clipboard
+    set clipboard=unnamed,unnamedplus
+else
+    set clipboard=unnamed
+endif
+set colorcolumn=81,82 " Highlight 81 and 82 columns
+set conceallevel=0    " Always show text normally
+set complete=.,w,b    " Sources for term and line completions
+set completeopt=menu,menuone,noinsert,noselect
+set dictionary=/usr/share/dict/words
+if has('nvim-0.3.2') || has('patch-8.1.0360')
+    set diffopt=filler,internal,algorithm:histogram,indent-heuristic
+endif
+set expandtab         " Use spaces instead of tabs
+set foldlevelstart=20
+set foldmethod=indent " Simple and fast
+set foldtext=''
+set formatoptions=cqj " Default format options
+set gdefault          " Always do global substitutes
+set history=200       " Keep 200 changes of undo history
+set infercase         " Smart casing when completing
+set ignorecase        " Search in case-insensitively
+set incsearch         " Go to search results immediately
+set laststatus=2      " We want a statusline
+set mouse=a           " Mouse support in the terminal
+set mousehide         " Hide mouse when typing text
+set nobackup          " No backup files
+set nocompatible      " No Vi support
+set noexrc            " Disable reading of working directory vimrc files
+set nojoinspaces      " No to double-spaces when joining lines
+set noshowcmd         " No to showing command in bottom-right corner
+set noshowmatch       " No jumping jumping cursors when matching pairs
+set noshowmode        " No to showing mode in bottom-left corner
+set noswapfile        " No backup files
+set number            " Show line numbers
+set nrformats=        " No to oct/hex support when doing CTRL-a/x
+set path=**
+set pumheight=20      " Height of complete list
+set shiftwidth=2      " Default indentation amount
+set shortmess+=c      " Don't show insert mode completion messages
+set shortmess+=I      " Don't show intro message
+set signcolumn=auto   " Only render sign column when needed
+set showbreak=↳       " Use this to wrap long lines
+set smartcase         " Case-smart searching
+set smarttab          " Tab at the start of line inserts blanks
+" When spell checking, assume word boundaries include 'CamelCasing'.
+if exists('&spelloptions')
+    set spelloptions=camel
+endif
+set splitbelow        " Split below current window
+set splitright        " Split window to the right
+set tabstop=4         " Tab width
+set textwidth=80      " Standard width before breaking
+set timeoutlen=1500   " Give some time for multi-key mappings
+" Don't set ttimeoutlen to zero otherwise it will break some Vim terminal
+" behaviours
+set ttimeoutlen=10
+" Set the persistent undo directory on temporary private fast storage.
+let s:undoDir='/tmp/.undodir_' . $USER
+if !isdirectory(s:undoDir)
+    call mkdir(s:undoDir, '', 0700)
+endif
+let &undodir=s:undoDir
+set undofile          " Maintain undo history
+set updatetime=1000   " Certain plugins use this for CursorHold event triggering
+set wildcharm=<Tab>   " Defines the trigger for 'wildmenu' in mappings
+set wildmenu          " Nice command completions
+set wildmode=full     " Complete the next full match
+set wrap              " Wrap long lines
+set cryptmethod=blowfish2
+set listchars=eol:$,tab:>-,trail:-
+if exists('&cursorlineopt')
+    set cursorline
+    set cursorlineopt=number
+endif
+
+" Better Completion
+set complete=.,w,b,u,t
+set completeopt=longest,menuone
+
 "========== User Interface Options ==========
 set ttyfast
-set laststatus=2
-set ruler
-set number
-set noerrorbells
 set title
 
 "Text Rendering Options
 set fileencoding=utf-8
 set encoding=utf-8
-syntax enable
-set noswapfile
-set nobackup
-set nowb
-set wrap
 
 " Misellaneous
-set history=1000
-set autoread
-set backspace=indent,eol,start  "Allow backspace in insert mode
-set hidden
-set showcmd                     "Show incomplete cmds down the bottom
-set showmode                    "Show current mode down the bottom
+set hidden showcmd                     "Show incomplete cmds down the bottom
 set gcr=a:blinkon0
 set nolist
-set clipboard=unnamed
 set fileformats=unix,dos,mac " Prefer Unix over Windows over OS 9 formats
-set noshowmatch              " Do not show matching brackets by flickering
-set noshowmode               " We show the mode with airline or lightline
-set autoread                    " Automatically reread changed files without asking me anything
-
-set completeopt=menu,menuone
 set nocursorcolumn           " speed up syntax highlighting
 set nocursorline
-set updatetime=300
-set pumheight=10             " Completion window max size
-set conceallevel=2           " Concealed text is completely hidden
 
 "" Searching
 set hlsearch " Highlight found searches
-set incsearch " Shows the match while typingh
-set ignorecase
-set smartcase
-
-set mouse=a                     "Enable mouse mode
 
 " increase max memory to show syntax highlighting for large files
 set maxmempattern=20000
 
-" ~/.viminfo needs to be writable and readable. Set oldfiles to 1000 last
-" recently opened files, :FzfHistory uses it
-set viminfo='1000
-
-set splitright
-set splitbelow
 set lazyredraw " Avoid lags
 
 "Indentation Options
-set autoindent
-set expandtab
 filetype plugin indent on
 set shiftround
-set shiftwidth=4
-set smarttab
-set tabstop=4
 let g:indentLine_enabled = 1
 let g:indentLine_concealcursor = 0
 let g:indentLine_char = '┆'
@@ -96,46 +155,24 @@ let g:indentLine_faster = 1
 
 
 " ================ Turn off Swap Files ==================
-set noswapfile
-set nobackup
 set nowb
 
 " ==================== Scrolling ========================
+" improve scroll performance for certain file types
+augroup syntaxSyncMinLines
+    autocmd!
+    autocmd Syntax * syntax sync minlines=2000
+augroup END
+
 set scrolloff=8
 set sidescrolloff=15
 set sidescroll=1
-
-" ================ Persistent Undo ==================
-" Keep undo history across sessions, by storing in file.
-" Only works all the time.
-" NOT WORKING: Didnt work when yanked right out of YADR
-silent !mkdir ~/.vim/backups > /dev/null 2>&1
-set undodir=~/.vim/backups
-set undofile
-
-" Statusbar
-set statusline=\ %f\  " Filename
-set statusline+=%{fugitive#statusline()} " Git info
-set statusline+=%= " Separator
-set statusline+=%y " File type
-set statusline+=[%{strlen(&fenc)?&fenc:'none'}] " File encoding
-set statusline+=[%{&ff}] " File ending
-set statusline+=\ %P\ of\ %L\  " Perc. file
-set statusline+=(%l\:%c)\ " Line info
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-" Column ruler
-set colorcolumn=120
-
 
 " ==================== Markdown ========================
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 let g:markdown_minlines = 100
 let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'go']
 
-autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
 "=================== Golang =========================
 let g:go_highlight_diagnostic_warnings = 1
@@ -144,7 +181,6 @@ let g:go_highlight_function_parameters = 1
 let g:go_highlight_diagnostic_errors = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_methods = 1
-let g:go_highlight_operators =1
 let g:go_highlight_functions = 1
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
@@ -363,21 +399,8 @@ if !exists('g:airline_symbols')
 endif
 
 " unicode symbols
-let g:airline_left_sep = '»'
-let g:airline_left_sep = '▶'
-let g:airline_right_sep = '«'
-let g:airline_right_sep = '◀'
-let g:airline_symbols.linenr = '␊'
-let g:airline_symbols.linenr = '␤'
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '⎇'
 let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.paste = 'Þ'
-let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'Ξ'
-
-" airline symbols
-let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
 let g:airline_right_alt_sep = ''
@@ -388,7 +411,6 @@ let g:airline_symbols.linenr = ''
 " ================== SYNTASTIC ==============
 let g:syntastic_enable_signs = 1
 let g:syntastic_auto_jump=0
-let g:syntastic_auto_loc_list=1
 let g:syntastic_quiet_messages = {'level': 'warnings'}
 let g:syntastic_error_symbol = "✗"
 let g:syntastic_warning_symbol = "⚠"
@@ -476,4 +498,6 @@ nmap ]h <Plug>(GitGutterNextHunk)
 nmap [h <Plug>(GitGutterPrevHunk)
 nmap ghs <Plug>(GitGutterStageHunk)
 nmap ghu <Plug>(GitGutterUndoHunk)
-nmap ghp <Plug>(GitGutterPreviewHunk)
+nmap ghp <Plug>(GitGuttierPreviewHunk)
+
+
