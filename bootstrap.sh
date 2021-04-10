@@ -12,6 +12,7 @@ function doIt() {
 		  --exclude "brew.sh" \
 		  --exclude "README.md" \
           --exclude "Makefile" \
+          --exclude "terminal-config.json" \
 		  -avh --no-perms . ~;
 	source ~/.zprofile;
 }
