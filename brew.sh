@@ -40,4 +40,6 @@ brew install gh
 # Install vim
 brew install vim
 
-
+# Install font-fira-code
+brew tap homebrew/cask-fonts
+brew install --cask font-fira-code
