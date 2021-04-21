@@ -13,6 +13,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'jiangmiao/auto-pairs'
+Plug 'godoctor/godoctor.vim'
 
 " Themes
 Plug 'sainnhe/sonokai'
@@ -469,10 +470,7 @@ vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
 "" Open current line on GitHub
-nnoremap <Leader>gb :.Gbrowse<CR>
-
-nmap <c-s> :w<cr>
-imap <c-s> <esc>:w <cr>
+nnoremap <Leader>gb :.GBrowse<CR>
 
 map <c-n> :cnext<cr>
 map <c-m> :cprevious<cr>
@@ -486,9 +484,6 @@ nnoremap <leader>o :only<CR>
 " Print full path
 map <C-f> :echo expand("%:p")<cr>
 
-nnoremap <C-S-tab> :bprevious<CR>
-nnoremap <C-tab>   :bnext<CR>
-
 " turn to next or previous errors, after open location list
 nmap <c-j> :lnext<CR>
 nmap <c-k> :lprevious<CR>
@@ -500,4 +495,7 @@ nmap ghs <Plug>(GitGutterStageHunk)
 nmap ghu <Plug>(GitGutterUndoHunk)
 nmap ghp <Plug>(GitGuttierPreviewHunk)
 
+map gn :bn<cr>
+map gp :bp<cr>
+map gD :bd<cr>  
 
