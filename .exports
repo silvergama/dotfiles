@@ -8,6 +8,7 @@ export GOBIN=$HOME/Projects/go/bin
 export GO111MODULE=on
 export GOROOT=/usr/local/go
 export PKG_CONFIG_PATH=/usr/local/opt/openssl/lib/pkgconfig
+export PATH="$GOPATH/bin:$PATH"
 
 export LDFLAGS="-L/usr/local/opt/ncurses/lib"
 export CPPFLAGS="-I/usr/local/opt/ncurses/include"
