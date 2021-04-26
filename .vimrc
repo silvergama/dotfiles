@@ -14,6 +14,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'jiangmiao/auto-pairs'
 Plug 'godoctor/godoctor.vim'
+Plug 'buoto/gotests-vim'
 
 " Themes
 Plug 'sainnhe/sonokai'
