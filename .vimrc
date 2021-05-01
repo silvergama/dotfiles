@@ -1,8 +1,10 @@
+set nocompatible
+
 call plug#begin('~/.vim/plugged')
 
 " Plugins
-Plug 'vim-airline/vim-airline' 
-Plug 'vim-syntastic/syntastic' 
+Plug 'vim-airline/vim-airline'
+Plug 'vim-syntastic/syntastic'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'tpope/vim-vinegar'
 Plug 'dense-analysis/ale'
@@ -15,6 +17,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'jiangmiao/auto-pairs'
 Plug 'godoctor/godoctor.vim'
 Plug 'buoto/gotests-vim'
+Plug 'vim-scripts/indentpython.vim'
 
 " Themes
 Plug 'sainnhe/sonokai'
@@ -53,9 +56,6 @@ set conceallevel=0    " Always show text normally
 set complete=.,w,b    " Sources for term and line completions
 set completeopt=menu,menuone,noinsert,noselect
 set dictionary=/usr/share/dict/words
-if has('nvim-0.3.2') || has('patch-8.1.0360')
-    set diffopt=filler,internal,algorithm:histogram,indent-heuristic
-endif
 set expandtab         " Use spaces instead of tabs
 set foldlevelstart=20
 set foldmethod=indent " Simple and fast
@@ -70,7 +70,6 @@ set laststatus=2      " We want a statusline
 set mouse=a           " Mouse support in the terminal
 set mousehide         " Hide mouse when typing text
 set nobackup          " No backup files
-set nocompatible      " No Vi support
 set noexrc            " Disable reading of working directory vimrc files
 set nojoinspaces      " No to double-spaces when joining lines
 set noshowcmd         " No to showing command in bottom-right corner
@@ -170,13 +169,17 @@ set scrolloff=8
 set sidescrolloff=15
 set sidescroll=1
 
-" ==================== Markdown ========================
+"=========================================================
+"======================== Markdow ========================
+"=========================================================
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 let g:markdown_minlines = 100
 let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'go']
 
 
-"=================== Golang =========================
+"=========================================================
+"======================== Golang =========================
+"=========================================================
 let g:go_highlight_diagnostic_warnings = 1
 let g:go_highlight_variable_declarations = 1
 let g:go_highlight_function_parameters = 1
@@ -215,7 +218,7 @@ augroup go
   au Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
   au Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
   au Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
-  
+
   au FileType go nmap <Leader>d <Plug>(go-def)
   au FileType go nmap <Leader>dp <Plug>(go-def-pop)
   au FileType go nmap <Leader>dd <Plug>(go-def-vertical)
@@ -238,28 +241,44 @@ augroup go
   au FileType go imap ;err <ESC>:GoIfErr<CR>
 augroup END
 
-"=================== Ale =========================
+"=========================================================
+"======================== Python =========================
+"=========================================================
+autocmd FileType python set tabstop=4|set shiftwidth=4|set expandtab|set autoindent
+
+" =======================================================
+au BufNewFile,BufRead *.js, *.html, *.css
+    \ set tabstop=2
+    \ set softtabstop=2
+    \ set shiftwidth=2
+
+"=========================================================
+"======================== ALE ============================
+"=========================================================
 let g:ale_echo_cursor = 1
 let g:ale_echo_msg_format = '%s'
 let g:ale_echo_msg_warning_str = 'Warning'
 let g:ale_echo_msg_error_str = 'Error'
 let g:ale_enabled = 1
 
-set filetype=html
 let g:ale_linters = {
-    \ "go": ['golint', 'go build', 'gofmt', 'go vet', 'gopls', 'revive'],
-    \"javascript": ['eslint']
+    \ 'go': ['golint', 'go build', 'gofmt', 'go vet', 'gopls', 'revive'],
+    \'javascript': ['eslint'],
+    \ 'python': ['flake8', 'bandit']
     \}
+
 let g:ale_fixers = {
-    \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+    \ '*': ['remove_trailing_lines'],
     \ 'html': ['prettier'],
     \ 'javascript': ['eslint', 'prettier'],
-    \ 'css' : ['stylelint', 'prettier'],           
+    \ 'css' : ['stylelint', 'prettier'],
     \ 'go': ['gofmt'],
+    \ 'python': ['black'],
     \ 'typescript': ['prettier', 'tslint'],
     \ 'vue': ['eslint'],
     \ 'scss': ['prettier'],
     \}
+
 let g:ale_fix_on_save = 0
 let g:ale_linters_explicit = 0
 let g:ale_linter_aliases = {}
@@ -284,14 +303,13 @@ let g:ale_type_map = {}
 let g:ale_virtualtext_cursor = 0
 let g:ale_warn_about_trailing_whitespace = 0
 let g:ale_warn_about_trailing_blank_lines = 0
-let g:ale_change_sign_column_color = 1 
+let g:ale_change_sign_column_color = 1
 highlight! ALESignColumnWithErrors ctermfg=0 ctermbg=8 guifg=#4a4a4a guibg=#4a4a4a
 highlight! ALESignColumnWithoutErrors ctermfg=0 ctermbg=0 guifg=#4a4a4a guibg=#4a4a4a
 
 "=====================================================
-"===================== STATUSLINE ====================
+"======================== StatusLine =================
 "=====================================================
-
 let s:modes = {
       \ 'n': 'NORMAL',
       \ 'i': 'INSERT',
@@ -496,7 +514,7 @@ nmap ghs <Plug>(GitGutterStageHunk)
 nmap ghu <Plug>(GitGutterUndoHunk)
 nmap ghp <Plug>(GitGuttierPreviewHunk)
 
+"===================== Buffer maps ====================
 map gn :bn<cr>
 map gp :bp<cr>
-map gD :bd<cr>  
-
+map gD :bd<cr>
