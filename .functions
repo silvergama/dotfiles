@@ -72,3 +72,7 @@ function gstashpop() {
 function gstashdrop() {
     git stash drop $(git stash list | grep "zsh_stash_name_$1" | cut -d: -f1)
 }
+
+function tree() {
+    tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX;
+}
