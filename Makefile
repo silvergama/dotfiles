@@ -16,7 +16,6 @@ curl-command:
 
 shell-command:
 	sh brew.sh
-	sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 source:
 	sh bootstrap.sh -f

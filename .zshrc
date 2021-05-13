@@ -77,7 +77,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git branch brew colorize django docker docker-compose docker-machine git-extras github gitignore nmap pep8 python pylint virtualenv zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git branch brew colorize django docker docker-compose docker-machine git-extras github gitignore nmap pep8 python pylint virtualenv)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -106,7 +106,9 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
+source $(brew --prefix)/opt/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet

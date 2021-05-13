@@ -3,7 +3,7 @@
 which -s brew
 if [[ $? != 0 ]] ; then
     # Install Homebrew
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 else
     # Make sure we’re using the latest Homebrew.
     brew update
@@ -14,6 +14,9 @@ fi
 
 #Install ZSH
 brew install zsh zsh-autosuggestions zsh-syntax-highlighting
+
+# install powerlevel10k
+brew install romkatv/powerlevel10k/powerlevel10k
 
 # Install GNU core utilities (those that come with macOS are outdated).
 # Don’t forget to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.
