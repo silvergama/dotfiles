@@ -1,6 +1,4 @@
 # Load the shell dotfiles, and then some:
-eval "$(/opt/homebrew/bin/brew shellenv)"
-
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
 
 # Include custom aliases
