@@ -53,3 +53,8 @@ brew install httpie
 # Install kubectl
 brew install kubectl
 
+# Install DBeaver
+brew install --cask dbeaver-community
+
+# Install Spotify
+brew install --cask spotify
