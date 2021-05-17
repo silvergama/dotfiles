@@ -49,3 +49,7 @@ brew install --cask font-fira-code
 
 # Instal hhtpie
 brew install httpie
+
+# Install kubectl
+brew install kubectl
+
