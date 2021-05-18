@@ -58,3 +58,6 @@ brew install --cask dbeaver-community
 
 # Install Spotify
 brew install --cask spotify
+
+# Install AWS Cli
+brew install awscli

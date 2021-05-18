@@ -171,9 +171,9 @@ let g:go_highlight_generate_tags = 1
 let g:go_highlight_space_tab_error = 1
 let g:go_highlight_array_whitespace_error = 0
 let g:go_highlight_trailing_whitespace_error = 0
-let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck', 'deadcode']
+let g:go_metalinter_enabled = ['vet', 'revive', 'errcheck', 'deadcode']
 let g:go_metalinter_autosave = 0
-let g:go_metalinter_autosave_enabled = ['golint']
+let g:go_metalinter_autosave_enabled = ['revive']
 let g:go_metalinter_command='golangci-lint'
 let g:go_fmt_command = "goimports"
 let g:go_fmt_autosave = 1
@@ -236,7 +236,7 @@ let g:ale_echo_msg_error_str = 'Error'
 let g:ale_enabled = 1
 
 let g:ale_linters = {
-    \ 'go': ['golint', 'go build', 'gofmt', 'go vet', 'gopls', 'revive'],
+    \ 'go': ['go build', 'gofmt', 'go vet', 'gopls', 'revive'],
     \'javascript': ['eslint'],
     \ 'python': ['flake8', 'bandit']
     \}
@@ -408,7 +408,7 @@ let g:syntastic_auto_jump=0
 let g:syntastic_quiet_messages = {'level': 'warnings'}
 let g:syntastic_error_symbol = "✗"
 let g:syntastic_warning_symbol = "⚠"
-let g:syntastic_go_checkers = ['go', 'golint', 'errcheck']
+let g:syntastic_go_checkers = ['go', 'revive', 'errcheck']
 let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
