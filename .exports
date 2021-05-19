@@ -3,17 +3,17 @@
 export EDITOR='vim'
 
 ### Go
-export GOPATH=$HOME/Projects/go
-export GOBIN=$HOME/Projects/go/bin
-export GO111MODULE=on
+
 export GOROOT=/usr/local/go
+export GOPATH=$HOME/Projects/go
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOROOT:$GOPATH:$GOBIN
+export GO111MODULE=on
 export PKG_CONFIG_PATH=/usr/local/opt/openssl/lib/pkgconfig
-export PATH="$GOPATH/bin:$PATH"
 
 export LDFLAGS="-L/usr/local/opt/ncurses/lib"
 export CPPFLAGS="-I/usr/local/opt/ncurses/include"
 
-export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-export PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"
+export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
 
 export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/opt/homebrew/share/zsh-syntax-highlighting/highlighters
