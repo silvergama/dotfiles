@@ -15,5 +15,3 @@ export LDFLAGS="-L/usr/local/opt/ncurses/lib"
 export CPPFLAGS="-I/usr/local/opt/ncurses/include"
 
 export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
-
-export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/opt/homebrew/share/zsh-syntax-highlighting/highlighters
