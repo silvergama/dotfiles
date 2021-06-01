@@ -25,3 +25,4 @@ for file in ~/.{path,aliases,exports,extra,functions,private,tokens,zshenv}; do
 done;
 unset file;
 
+export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"

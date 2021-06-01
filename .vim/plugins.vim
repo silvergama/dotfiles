@@ -16,6 +16,9 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'godoctor/godoctor.vim'
 Plug 'buoto/gotests-vim'
 Plug 'vim-scripts/indentpython.vim'
+Plug 'SirVer/ultisnips'
+Plug 'ervandew/supertab'
+Plug 'scrooloose/nerdtree'
 
 " Themes
 Plug 'sainnhe/sonokai'

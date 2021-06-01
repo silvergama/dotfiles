@@ -416,6 +416,13 @@ let g:syntastic_auto_loc_list = 1
 "================== FZF ====================
 set rtp+=/usr/local/opt/fzf
 
+" ==================== NerdTree ====================
+" For toggling
+noremap <Leader>n :NERDTreeToggle<cr>
+noremap <Leader>f :NERDTreeFind<cr>
+
+let NERDTreeShowHidden=1
+
 "================== Abbreviations ====================
 " no one is really happy until you have this shortcuts
 cnoreabbrev W! w!
@@ -492,3 +499,13 @@ nmap ghp <Plug>(GitGuttierPreviewHunk)
 map gn :bn<cr>
 map gp :bp<cr>
 map gD :bd<cr>
+
+
+" ==================== Completion + Snippet ====================
+" Ultisnips has native support for SuperTab. SuperTab does omnicompletion by
+" pressing tab. I like this better than autocompletion, but it's still fast.
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
