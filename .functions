@@ -1,6 +1,6 @@
 #!/bin/sh
 
-function gocover () {
+gocover () {
 	t="/tmp/go-cover.$$.tmp"
 	go test -flags="all" -coverprofile=$t $@ && \
 	go tool cover -html=$t && \
@@ -8,12 +8,12 @@ function gocover () {
 }
 
 # Create a new directory and enter it
-function mkd() {
+mkd() {
 	mkdir -p "$@" && cd "$_";
 }
 
 # Determine size of a file or total size of a directory
-function fs() {
+fs() {
 	if du -b /dev/null > /dev/null 2>&1; then
 		local arg=-sbh;
 	else
@@ -26,53 +26,69 @@ function fs() {
 	fi;
 }
 
+
+###################### Docker functions ######################
+dexec(){
+  docker exec -it $1 $2
+}
+
+###################### Docker Compose functions ######################
+
+dcu(){
+  docker-compose up $1 $2
+}
+
+dcd(){
+  docker-compose down $1
+}
+
 ###################### K8S functions ######################
 
-function getJobs(){
+getJobs(){
    kubectl get jobs -n $1
 }
 
-function deleteJob(){
+deleteJob(){
     kubectl delete job -n $1 $2
 }
 
-function getPods() {
+getPods() {
     kubectl get pods -n $1
 }
 
-function getLogs(){
+getLogs(){
     kubectl logs -f -n $1 $2
 }
 
 ###################### Git functions ######################
-function updateBranch() {
+updateBranch() {
     git fetch --all
     git reset --hard FETCH_HEAD
     git pull
 }
 
-function gitsync() {
+gitsync() {
     git checkout $1;
     git remote prune origin;
     git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D;
     git checkout -
 }
 
-function gstash() {
-    git stash push -m "zsh_stash_name_$1"
+gstash() {
+    git stash push -m "zsh_stash_name_$1" $2
 }
 
-function gstashapply() {
+gstashapply() {
     git stash apply $(git stash list | grep "zsh_stash_name_$1" | cut -d: -f1)
 }
 
-function gstashpop() {
+gstashpop() {
     git stash pop $(git stash list | grep "zsh_stash_name_$1" | cut -d: -f1)
 }
-function gstashdrop() {
+gstashdrop() {
     git stash drop $(git stash list | grep "zsh_stash_name_$1" | cut -d: -f1)
 }
 
-function tre() {
+tre() {
     tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX;
 }

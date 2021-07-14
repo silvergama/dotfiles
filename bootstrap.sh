@@ -1,10 +1,11 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 cd "$(dirname "${BASH_SOURCE}")";
 
 git pull origin master;
 
-function doIt() {
+doIt() 
+{
 	rsync --exclude ".git/" \
 	      --exclude ".gitignore" \
 	      --exclude ".DS_Store" \
@@ -17,12 +18,5 @@ function doIt() {
 	source ~/.zprofile;
 }
 
-if [[ $1 == --force || $1 == -f ]]; then
-    doIt;
-else
-	read "response?This may overwrite existing files in your home directory. Are you sure? (y/n) ";
-	if [[ $response =~ ^[Yy]$ ]]; then
-		doIt;
-	fi;
-fi;
+doIt;
 unset doIt;

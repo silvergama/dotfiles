@@ -6,7 +6,7 @@ Plug 'vim-syntastic/syntastic'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'tpope/vim-vinegar'
 Plug 'dense-analysis/ale'
-Plug 'iamcco/markdown-preview.vim'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'prettier/vim-prettier', { 'do': 'npm install' }
 Plug 'wakatime/vim-wakatime'
 Plug 'airblade/vim-gitgutter'

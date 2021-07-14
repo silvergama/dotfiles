@@ -6,13 +6,14 @@ user-nick = $(USER)
 VIM_PATH = ~/.vim
 
 install: vim/clean
-	@make shell-command
 	@make curl-command
 	@make source
 
 curl-command:
 	curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+	sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 shell-command:
 	sh brew.sh
