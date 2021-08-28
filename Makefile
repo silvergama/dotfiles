@@ -6,7 +6,6 @@ user-nick = $(USER)
 VIM_PATH = ~/.vim
 
 install: vim/clean
-	@make shell-command
 	@make curl-command
 	@make source
 
@@ -15,10 +14,13 @@ curl-command:
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 shell-command:
-	sh brew.sh
+	bash brew.sh
 
 source:
-	sh bootstrap.sh -f
+	bash bootstrap.sh -f
+
+onlinux: 
+	sh install.sh
 
 vim/clean: 
 	rm -rf $(VIM_PATH)/backups

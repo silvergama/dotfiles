@@ -10,6 +10,7 @@ function doIt() {
 	      --exclude ".DS_Store" \
 		  --exclude "bootstrap.sh" \
 		  --exclude "brew.sh" \
+          --exclude "install.sh" \
 		  --exclude "README.md" \
           --exclude "Makefile" \
           --exclude "terminal-config.json" \
