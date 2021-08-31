@@ -9,10 +9,10 @@ install: vim/clean
 	@make source
 	@make for_all_os
 
-for_linux:
+for/linux:
 	bash for_linux.sh
 
-for_macos:
+for/macos:
 	bash for_macos.sh
 
 for_all_os:
