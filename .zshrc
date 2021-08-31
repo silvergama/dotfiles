@@ -18,5 +18,7 @@ plugins=(git branch brew colorize django docker docker-compose docker-machine gi
 source $ZSH/oh-my-zsh.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-source ~/powerlevel10k/powerlevel10k.zsh-theme
+# source ~/powerlevel10k/powerlevel10k.zsh-theme
+ZSH_THEME="powerlevel10k/powerlevel10k"
 source ~/.p10k.zsh
+source ~/powerlevel10k/powerlevel10k.zsh-theme
