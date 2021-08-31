@@ -500,6 +500,7 @@ map gn :bn<cr>
 map gp :bp<cr>
 map gD :bd<cr>
 
+let g:rainbow_active = 1
 
 " ==================== Completion + Snippet ====================
 " Ultisnips has native support for SuperTab. SuperTab does omnicompletion by

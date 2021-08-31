@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 which -s brew
 if [[ $? != 0 ]] ; then
@@ -13,7 +13,7 @@ else
 fi
 
 #Install ZSH
-brew install zsh zsh-autosuggestions zsh-syntax-highlighting
+brew install zsh
 
 # install powerlevel10k
 brew install romkatv/powerlevel10k/powerlevel10k

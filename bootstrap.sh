@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 cd "$(dirname "${BASH_SOURCE}")";
 
@@ -9,9 +9,11 @@ function doIt() {
 	      --exclude ".gitignore" \
 	      --exclude ".DS_Store" \
 		  --exclude "bootstrap.sh" \
-		  --exclude "brew.sh" \
-		  --exclude "README.md" \
+		  --exclude "for_all_os.sh" \
+		  --exclude "for_macos.sh" \
+          --exclude "for_linux.sh" \
           --exclude "Makefile" \
+		  --exclude "README.md" \
           --exclude "terminal-config.json" \
 		  -avh --no-perms . ~;
 	source ~/.zprofile;

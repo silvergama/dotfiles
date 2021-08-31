@@ -7,18 +7,18 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'tpope/vim-vinegar'
 Plug 'dense-analysis/ale'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-Plug 'prettier/vim-prettier', { 'do': 'npm install' }
 Plug 'wakatime/vim-wakatime'
 Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'tpope/vim-fugitive'
 Plug 'jiangmiao/auto-pairs'
+Plug 'frazrepo/vim-rainbow'
 Plug 'godoctor/godoctor.vim'
 Plug 'buoto/gotests-vim'
-Plug 'vim-scripts/indentpython.vim'
-Plug 'SirVer/ultisnips'
-Plug 'ervandew/supertab'
 Plug 'scrooloose/nerdtree'
+Plug 'govim/govim'
+Plug 'codota/tabnine-vim'
 
 " Themes
 Plug 'sainnhe/sonokai'
