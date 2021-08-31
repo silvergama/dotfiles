@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 function gocover () {
 	t="/tmp/go-cover.$$.tmp"

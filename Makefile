@@ -6,19 +6,20 @@ user-nick = $(USER)
 VIM_PATH = ~/.vim
 
 install: vim/clean
-	@make shell-command
-	@make curl-command
 	@make source
+	@make for_all_os
 
-curl-command:
-	curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+for_linux:
+	bash for_linux.sh
 
-shell-command:
-	sh brew.sh
+for_macos:
+	bash for_macos.sh
+
+for_all_os:
+	bash for_all_os.sh
 
 source:
-	sh bootstrap.sh -f
+	bash bootstrap.sh -f
 
 vim/clean: 
 	rm -rf $(VIM_PATH)/backups
