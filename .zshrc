@@ -11,14 +11,12 @@ fi
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
-# ZSH_THEME="robbyrussell"
-
-plugins=(git branch brew colorize django docker docker-compose docker-machine git-extras github gitignore nmap pep8 python pylint virtualenv zsh-syntax-highlighting zsh-autosuggestions)
+plugins=(git branch brew colorize docker docker-compose docker-machine git-extras github gitignore nmap pep8 python pylint virtualenv asdf zsh-autosuggestions zsh-completions 
+    zsh-history-substring-search zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-# source ~/powerlevel10k/powerlevel10k.zsh-theme
 ZSH_THEME="powerlevel10k/powerlevel10k"
 source ~/.p10k.zsh
 source ~/powerlevel10k/powerlevel10k.zsh-theme
