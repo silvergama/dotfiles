@@ -18,7 +18,9 @@ Plug 'godoctor/godoctor.vim'
 Plug 'buoto/gotests-vim'
 Plug 'scrooloose/nerdtree'
 Plug 'govim/govim'
-Plug 'codota/tabnine-vim'
+Plug 'maralla/completor.vim'
+Plug 'hschne/fzf-git'
+" Plug 'codota/tabnine-vim'
 
 " Themes
 Plug 'sainnhe/sonokai'
