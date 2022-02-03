@@ -44,6 +44,14 @@ function getLogs(){
     kubectl logs -f -n $1 $2
 }
 
+function getServices() {
+  kubectl get services -n $1
+}
+
+function getDeploy() {
+  kubectl get deploy -n $1
+}
+
 ###################### Git functions ######################
 function updateBranch() {
     git fetch --all
@@ -59,18 +67,18 @@ function gitsync() {
 }
 
 function gstash() {
-    git stash push -m "zsh_stash_name_$1"
+    git stash push -m "$1"
 }
 
 function gstashapply() {
-    git stash apply $(git stash list | grep "zsh_stash_name_$1" | cut -d: -f1)
+    git stash apply $(git stash list | grep "$1" | cut -d: -f1)
 }
 
 function gstashpop() {
-    git stash pop $(git stash list | grep "zsh_stash_name_$1" | cut -d: -f1)
+    git stash pop $(git stash list | grep "$1" | cut -d: -f1)
 }
 function gstashdrop() {
-    git stash drop $(git stash list | grep "zsh_stash_name_$1" | cut -d: -f1)
+    git stash drop $(git stash list | grep "$1" | cut -d: -f1)
 }
 
 function tre() {
