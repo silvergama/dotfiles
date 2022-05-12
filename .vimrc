@@ -474,7 +474,10 @@ map gn :bn<cr>
 map gp :bp<cr>
 map gD :bd<cr>
 
+
+"===================== Rainbow ====================
 let g:rainbow_active = 1
+let g:rainbow_ctermfgs = ['yellow', 'lightblue', 'magenta', 'lightgreen', 'red']
 
 " ==================== Completion + Snippet ====================
 " Ultisnips has native support for SuperTab. SuperTab does omnicompletion by
