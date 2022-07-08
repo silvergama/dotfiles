@@ -125,7 +125,6 @@ set lazyredraw " Avoid lags
 filetype plugin indent on
 set shiftround
 let g:indentLine_enabled = 1
-let g:indentLine_concealcursor = 0
 let g:indentLine_char = '┆'
 let g:indentLine_faster = 1
 
@@ -143,6 +142,7 @@ augroup END
 set scrolloff=8
 set sidescrolloff=15
 set sidescroll=1
+
 
 "=========================================================
 "======================== Markdow ========================
@@ -190,6 +190,9 @@ let g:go_doc_popup_window = 1
 let g:completor_filetype_map = {}
 let g:completor_filetype_map.go = {'ft': 'lsp', 'cmd': 'gopls -remote=auto'}"
 
+" gotests-vim
+let g:gotests_bin = $HOME.'/Projects/go/bin/gotests'
+
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
 
 augroup go
@@ -232,118 +235,48 @@ au BufNewFile,BufRead *.js, *.html, *.css
     \ set softtabstop=2
     \ set shiftwidth=2
 
+
 "=========================================================
 "======================== ALE ============================
 "=========================================================
-let g:ale_echo_cursor = 1
-let g:ale_echo_msg_format = '%s'
-let g:ale_echo_msg_warning_str = 'Warning'
-let g:ale_echo_msg_error_str = 'Error'
-let g:ale_enabled = 1
+nmap <silent> <C-e> <Plug>(ale_next_wrap)
 
-let g:ale_sign_column_always = 0
-let g:ale_lint_delay = 200
-let g:ale_sign_error = '💣'
-let g:ale_sign_warning = '⚡︎'
-let g:ale_sign_style_error = '✗'
-let g:ale_sign_style_warning = '⚠'
-let g:ale_sign_highlight_linenrs = 1
-let g:ale_warn_about_trailing_blank_lines = 1
-let g:ale_statusline_format = ['%d error(s)', '%d warning(s)', 'OK']
-highlight! ALESignColumnWithErrors ctermfg=0 ctermbg=8 guifg=#4a4a4a guibg=#4a4a4a
-highlight! ALESignColumnWithoutErrors ctermfg=0 ctermbg=0 guifg=#4a4a4a guibg=#4a4a4a
+function! LinterStatus() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
 
-"=====================================================
-"======================== StatusLine =================
-"=====================================================
-let s:modes = {
-      \ 'n': 'NORMAL',
-      \ 'i': 'INSERT',
-      \ 'R': 'REPLACE',
-      \ 'v': 'VISUAL',
-      \ 'V': 'V-LINE',
-      \ "\<C-v>": 'V-BLOCK',
-      \ 'c': 'COMMAND',
-      \ 's': 'SELECT',
-      \ 'S': 'S-LINE',
-      \ "\<C-s>": 'S-BLOCK',
-      \ 't': 'TERMINAL'
-      \}
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_warnings = l:counts.total - l:all_errors
 
-let s:prev_mode = ""
-function! StatusLineMode()
-  let cur_mode = get(s:modes, mode(), '')
-
-  " do not update higlight if the mode is the same
-  if cur_mode == s:prev_mode
-    return cur_mode
-  endif
-
-  if cur_mode == "NORMAL"
-    exe 'hi! StatusLine ctermfg=236'
-    exe 'hi! myModeColor cterm=bold ctermbg=148 ctermfg=22'
-  elseif cur_mode == "INSERT"
-    exe 'hi! myModeColor cterm=bold ctermbg=23 ctermfg=231'
-  elseif cur_mode == "VISUAL" || cur_mode == "V-LINE" || cur_mode == "V_BLOCK"
-    exe 'hi! StatusLine ctermfg=236'
-    exe 'hi! myModeColor cterm=bold ctermbg=208 ctermfg=88'
-  endif
-
-  let s:prev_mode = cur_mode
-  return cur_mode
+    let l:errors_recap = l:all_errors == 0 ? '' : printf('%d⨉ ', all_errors)
+    let l:warnings_recap = l:all_warnings == 0 ? '' : printf('%d⚠ ', all_warnings)
+    return (errors_recap . warnings_recap)
 endfunction
 
-function! StatusLineFiletype()
-  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
-endfunction
-
-function! StatusLinePercent()
-  return (100 * line('.') / line('$')) . '%'
-endfunction
-
-function! StatusLineLeftInfo()
- let branch = fugitive#head()
- let filename = '' != expand('%:t') ? expand('%:t') : '[No Name]'
- if branch !=# ''
-   return printf("%s | %s", branch, filename)
- endif
- return filename
-endfunction
-
-exe 'hi! myInfoColor ctermbg=240 ctermfg=252'
-
-" start building our statusline
-set statusline=
-
-" mode with custom colors
-set statusline+=%#myModeColor#
-set statusline+=%{StatusLineMode()}
-set statusline+=%*
-
-" left information bar (after mode)
-set statusline+=%#myInfoColor#
-set statusline+=\ %{StatusLineLeftInfo()}
-set statusline+=\ %*
-
-" go command status (requires vim-go)
-set statusline+=%#goStatuslineColor#
-set statusline+=%{go#statusline#Show()}
-set statusline+=%*
-
-" right section seperator
 set statusline+=%=
+set statusline+=\ %{LinterStatus()}
 
-" filetype, percentage, line number and column number
-set statusline+=%#myInfoColor#
-set statusline+=\ %{StatusLineFiletype()}\ %{StatusLinePercent()}\ %l:%v
-set statusline+=\ %*
+let g:ale_lint_on_enter = 1
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 'always'
+
+let g:ale_sign_error = '●'
+let g:ale_sign_warning = '.'
+let g:ale_sign_highlight_linenrs = 1
+
+let g:ale_fixers = {
+  \ 'go': ['gofmt', 'goimports', 'golines'],
+  \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+  \}
+
+let g:ale_fix_on_save = 1
 
 " ================= Colors =================
 syntax enable
 set background=dark
 let g:molokai_original = 1
 let g:rehash256 = 1
-colorscheme solarized8_high
+colorscheme molokai
+
 
 " ================ Formatters ===============
 au FileType javascript setlocal formatprg=prettier
@@ -386,16 +319,36 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 
 "================== FZF ====================
+" --column: Show column number
+" --line-number: Show line number
+" --no-heading: Do not show file headings in results
+" --fixed-strings: Search term as a literal string
+" --ignore-case: Case insensitive search
+" --no-ignore: Do not respect .gitignore, etc...
+" --hidden: Search hidden files and folders
+" --follow: Follow symlinks
+" --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+" --color: Search color options
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)"')"
+if has("gui_running")
+else
+  noremap <S-f> :GFiles<cr>
+  " nnoremap <Leader>d :GFiles<Enter>
+endif
 set rtp+=/usr/local/opt/fzf
-noremap <S-f> :GFiles<cr>
+
 
 " ==================== NerdTree ====================
-" For toggling
-noremap <S-n> :NERDTreeToggle<cr>
-" noremap <Leader>f :NERDTreeFind<cr>
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+let NERDTreeQuitOnOpen = 1
+let NERDTreeAutoDeleteBuffer = 1
+let NERDTreeShowHidden=1
+
+
+nmap <Leader>f :NERDTreeToggle<Enter>
 map <S-Right> :tabn<cr>
 map <S-Left> :tabp<cr>
-let NERDTreeShowHidden=1
 
 "================== Abbreviations ====================
 " no one is really happy until you have this shortcuts
@@ -473,7 +426,6 @@ nmap ghp <Plug>(GitGuttierPreviewHunk)
 map gn :bn<cr>
 map gp :bp<cr>
 map gD :bd<cr>
-
 
 "===================== Rainbow ====================
 let g:rainbow_active = 1

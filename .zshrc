@@ -33,3 +33,5 @@ if [ -f '/Users/sgama/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/sga
 
 if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc' ]; then . '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'; fi
 compdef __start_kubectl k
+
+eval $(/usr/local/bin/brew shellenv)
