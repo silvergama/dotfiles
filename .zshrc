@@ -27,14 +27,14 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 source ~/.p10k.zsh
 # source ~/powerlevel10k/powerlevel10k.zsh-theme
 source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
-source "/Users/sgama/.sdkman/bin/sdkman-init.sh"
-# export PATH="/usr/local/opt/go@1.14/bin:$PATH"
+
+if [ -f "${HOME}/.sdkman/bin/sdkman-init.sh" ]; then source "${HOME}/.sdkman/bin/sdkman-init.sh"; fi
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/sgama/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/sgama/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f "${HOME}/google-cloud-sdk/path.zsh.inc" ]; then . "${HOME}/google-cloud-sdk/path.zsh.inc"; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/sgama/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/sgama/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f "${HOME}/google-cloud-sdk/completion.zsh.inc" ]; then . "${HOME}/google-cloud-sdk/completion.zsh.inc"; fi
 
 if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc' ]; then . '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'; fi
 compdef __start_kubectl k
