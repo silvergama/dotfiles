@@ -13,7 +13,7 @@ fi
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
-plugins=(git branch brew colorize docker docker-compose docker-machine git-extras github gitignore nmap pep8 python pylint virtualenv asdf zsh-autosuggestions zsh-completions 
+plugins=(git branch brew colorize docker docker-compose docker-machine git-extras github gitignore nmap pep8 python pylint virtualenv asdf zsh-autosuggestions zsh-completions
     zsh-history-substring-search zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
@@ -22,7 +22,7 @@ source $ZSH/oh-my-zsh.sh
 ZSH_THEME="powerlevel10k/powerlevel10k"
 source ~/.p10k.zsh
 source ~/powerlevel10k/powerlevel10k.zsh-theme
-
+source "/Users/sgama/.sdkman/bin/sdkman-init.sh"
 # export PATH="/usr/local/opt/go@1.14/bin:$PATH"
 
 # The next line updates PATH for the Google Cloud SDK.

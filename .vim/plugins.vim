@@ -31,9 +31,8 @@ Plug 'wakatime/vim-wakatime'
 
 Plug 'jiangmiao/auto-pairs'
 Plug 'frazrepo/vim-rainbow'
-Plug 'godoctor/godoctor.vim'
+Plug 'godoctor/godoctor.vim', {'do': ':GoDoctorInstall'}
 Plug 'buoto/gotests-vim'
-Plug 'govim/govim'
 Plug 'maralla/completor.vim'
 Plug 'hschne/fzf-git'
 
