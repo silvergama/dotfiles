@@ -180,6 +180,8 @@ let g:go_fmt_command = "goimports"
 let g:go_fmt_autosave = 1
 let g:go_fmt_fail_silently = 1
 let g:go_auto_type_info = 1
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
 let g:go_addtags_transform = 'camelcase'
 let g:go_gopls_staticcheck = 1
 let g:go_list_type = 'quickfix'
@@ -247,7 +249,7 @@ function! LinterStatus() abort
     let l:all_errors = l:counts.error + l:counts.style_error
     let l:all_warnings = l:counts.total - l:all_errors
 
-    let l:errors_recap = l:all_errors == 0 ? '' : printf('%d⨉ ', all_errors)
+    let l:errors_recap = l:all_errors == 0 ? '' : printf('%d❌ ', all_errors)
     let l:warnings_recap = l:all_warnings == 0 ? '' : printf('%d⚠ ', all_warnings)
     return (errors_recap . warnings_recap)
 endfunction
@@ -255,12 +257,11 @@ endfunction
 set statusline+=%=
 set statusline+=\ %{LinterStatus()}
 
-let g:ale_lint_on_enter = 1
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 'always'
 
-let g:ale_sign_error = '●'
-let g:ale_sign_warning = '.'
+let g:ale_sign_error = '❌'
+let g:ale_sign_warning = '⚠️'
 let g:ale_sign_highlight_linenrs = 1
 
 let g:ale_fixers = {
@@ -290,22 +291,42 @@ au FileType css setlocal formatprg=prettier\ --parser\ css
 " ================== Airline ==============
 let g:airline#extensions#ale#enabled = 1
 let g:airline_powerline_fonts = 1
-"let g:airline_theme='atomic'
 let g:airline_theme='simple'
 
 if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
+  let g:airline_symbols = {}
 endif
 
-" unicode symbols
-let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.whitespace = 'Ξ'
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ''
+if !exists('g:airline_powerline_fonts')
+  let g:airline#extensions#tabline#left_sep = ' '
+  let g:airline#extensions#tabline#left_alt_sep = '|'
+  let g:airline_left_sep          = '▶'
+  let g:airline_left_alt_sep      = '»'
+  let g:airline_right_sep         = '◀'
+  let g:airline_right_alt_sep     = '«'
+  let g:airline#extensions#branch#prefix     = '⤴' "➔, ➥, ⎇
+  let g:airline#extensions#readonly#symbol   = '⊘'
+  let g:airline#extensions#linecolumn#prefix = '¶'
+  let g:airline#extensions#paste#symbol      = 'ρ'
+  let g:airline_symbols.linenr    = '␊'
+  let g:airline_symbols.branch    = '⎇'
+  let g:airline_symbols.paste     = 'ρ'
+  let g:airline_symbols.paste     = 'Þ'
+  let g:airline_symbols.paste     = '∥'
+  let g:airline_symbols.whitespace = 'Ξ'
+else
+  let g:airline#extensions#tabline#left_sep = ''
+  let g:airline#extensions#tabline#left_alt_sep = ''
+
+  " powerline symbols
+  let g:airline_left_sep = ''
+  let g:airline_left_alt_sep = ''
+  let g:airline_right_sep = ''
+  let g:airline_right_alt_sep = ''
+  let g:airline_symbols.branch = ''
+  let g:airline_symbols.readonly = ''
+  let g:airline_symbols.linenr = ''
+endif
 
 " ================== SYNTASTIC ==============
 let g:syntastic_enable_signs = 1
@@ -333,7 +354,6 @@ command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-h
 if has("gui_running")
 else
   noremap <S-f> :GFiles<cr>
-  " nnoremap <Leader>d :GFiles<Enter>
 endif
 set rtp+=/usr/local/opt/fzf
 
@@ -439,3 +459,6 @@ let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+" terminal emulation
+nnoremap <silent> <leader>sh :term<CR>
