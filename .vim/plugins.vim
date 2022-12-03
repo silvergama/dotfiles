@@ -35,7 +35,7 @@ Plug 'godoctor/godoctor.vim', {'do': ':GoDoctorInstall'}
 Plug 'buoto/gotests-vim'
 Plug 'maralla/completor.vim'
 Plug 'hschne/fzf-git'
-
+Plug 'dyng/ctrlsf.vim'
 
 if isdirectory('/usr/local/opt/fzf')
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'

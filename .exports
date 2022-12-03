@@ -17,6 +17,7 @@ export PATH=/opt/homebrew/bin:$PATH
 export PATH="/usr/local/opt/protobuf@3.6/bin:$PATH"
 export PATH="$GOPATH/bin:$PATH"
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+export PATH="/usr/local/opt/libpq/bin:$PATH"
 PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"

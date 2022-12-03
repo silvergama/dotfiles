@@ -2,7 +2,7 @@
 
 function gocover () {
 	t="/tmp/go-cover.$$.tmp"
-	go test -flags="all" -coverprofile=$t $@ && \
+	go test -v -coverprofile=$t $@ && \
 	go tool cover -html=$t && \
     rm $t
 }

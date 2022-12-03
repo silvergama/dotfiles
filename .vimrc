@@ -370,6 +370,30 @@ nmap <Leader>f :NERDTreeToggle<Enter>
 map <S-Right> :tabn<cr>
 map <S-Left> :tabp<cr>
 
+
+" ==================== CtrlSF ====================
+" Use the ack tool as the backend
+"let g:ctrlsf_backend = 'ack'
+let g:ctrlsf_ackprg = 'rg'
+" Auto close the results panel when opening a file
+"let g:ctrlsf_auto_close = { "normal":0, "compact":0 }
+" Immediately switch focus to the search window
+let g:ctrlsf_auto_focus = { "at":"start" }
+" Don't open the preview window automatically
+let g:ctrlsf_auto_preview = 1
+" Use the smart case sensitivity search scheme
+let g:ctrlsf_case_sensitive = 'smart'
+" Normal mode, not compact mode
+let g:ctrlsf_default_view = 'normal'
+" Use absoulte search by default
+let g:ctrlsf_regex_pattern = 0
+" Position of the search window
+"let g:ctrlsf_position = 'right'
+" Width or height of search window
+" let g:ctrlsf_winsize = '46'
+" Search from the current working directory
+let g:ctrlsf_default_root = 'cwd'
+
 "================== Abbreviations ====================
 " no one is really happy until you have this shortcuts
 cnoreabbrev W! w!
