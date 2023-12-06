@@ -6,3 +6,4 @@ alias numfmt="gnumfmt"
 alias k="kubectl"
 alias dk="docker"
 alias temperature="sudo powermetrics --samplers smc | grep -i \"CPU die temperature\""
+alias lsc='colorls -1 -a'
