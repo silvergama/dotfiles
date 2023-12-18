@@ -6,16 +6,18 @@ git pull origin master;
 
 function doIt() {
 	rsync --exclude ".git/" \
-	      --exclude ".gitignore" \
-	      --exclude ".DS_Store" \
-		  --exclude "bootstrap.sh" \
-		  --exclude "for_all_os.sh" \
-		  --exclude "for_macos.sh" \
-          --exclude "for_linux.sh" \
-          --exclude "Makefile" \
-		  --exclude "README.md" \
-          --exclude "terminal-config.json" \
-		  -avh --no-perms . ~;
+				--exclude ".gitignore" \
+				--exclude ".DS_Store" \
+				--exclude "nvim/" \
+				--exclude "bootstrap.sh" \
+				--exclude "for_all_os.sh" \
+				--exclude "for_macos.sh" \
+				--exclude "for_linux.sh" \
+				--exclude "Makefile" \
+				--exclude "README.md" \
+				--exclude "terminal-config.json" \
+				--exclude "gruvbox.itermcolors" \
+				-avh --no-perms . ~;
 	source ~/.zprofile;
 }
 
@@ -28,3 +30,5 @@ else
 	fi;
 fi;
 unset doIt;
+
+ln -s ~/Projects/silvergama/dotfiles/nvim/user ~/.config/nvim/lua/user
