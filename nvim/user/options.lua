@@ -6,6 +6,7 @@ return {
     wrap = true,            -- sets vim.opt.wrap
     termguicolors = true,
     showmode = true,
+    swapfile = false,
   },
   g = {
     codelens_enabled = true,
