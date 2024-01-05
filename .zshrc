@@ -40,3 +40,6 @@ if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion
 compdef __start_kubectl k
 
 eval $(/usr/local/bin/brew shellenv)
+
+. ~/.asdf/plugins/golang/set-env.zsh
+

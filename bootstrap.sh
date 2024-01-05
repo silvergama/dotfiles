@@ -31,4 +31,4 @@ else
 fi;
 unset doIt;
 
-ln -s ~/Projects/silvergama/dotfiles/nvim/user ~/.config/nvim/lua/user
+# ln -s ~/Projects/silvergama/dotfiles/nvim/user ~/.config/nvim/lua/user
