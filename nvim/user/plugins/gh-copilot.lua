@@ -1,26 +1,39 @@
 return {
   {
-    "github/copilot.vim",
-    config = function()
-      vim.g.copilot_no_tab_map = true
-      vim.g.copilot_assume_mapped = true
-      vim.g.copilot_tab_fallback = ""
-      vim.g.copilot_filetypes = {
-        ["*"] = false,
-        python = true,
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    build = ":Copilot auth",
+    event = "InsertEnter",
+    opts = {
+      suggestion = {
+        enabled = true,
+        auto_trigger = true,
+        keymap = {
+          accept = "<Tab>",
+          close = "<Esc>",
+          next = "<C-J>",
+          prev = "<C-K>",
+          select = "<CR>",
+          dismiss = "<C-X>",
+        },
+      },
+      panel = {
+        enabled = false,
+      },
+      filetypes = {
+        markdown = true,
+        help = true,
         lua = true,
-        go = true,
-        rust = true,
-        html = true,
-        c = true,
-        cpp = true,
-        java = true,
-        javascript = true,
-        typescript = true,
-        javascriptreact = true,
-        typescriptreact = true,
-        terraform = true,
-      }
-    end,
-  }
+        bash = true,
+        golang = true,
+      },
+    },
+  },
+  {
+    "zbirenbaum/copilot-cmp",
+    dependencies = {
+      "hrsh7th/nvim-cmp",
+    },
+    config = true,
+  },
 }
