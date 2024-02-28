@@ -1,34 +1,24 @@
-#!/bin/bash
+#!/bin/zsh
 
-cd "$(dirname "${BASH_SOURCE}")";
+dotfiles_folder="$(pwd)"
 
-git pull origin master;
+dotfiles=("aliases" "functions" "exports" "extra" "p10k.zsh" "zshrc" "zprofile")
 
-function doIt() {
-	rsync --exclude ".git/" \
-				--exclude ".gitignore" \
-				--exclude ".DS_Store" \
-				--exclude "nvim/" \
-				--exclude "bootstrap.sh" \
-				--exclude "for_all_os.sh" \
-				--exclude "for_macos.sh" \
-				--exclude "for_linux.sh" \
-				--exclude "Makefile" \
-				--exclude "README.md" \
-				--exclude "terminal-config.json" \
-				--exclude "gruvbox.itermcolors" \
-				-avh --no-perms . ~;
-	source ~/.zprofile;
-}
+for file in "${dotfiles[@]}"; do
+    dotfile="$dotfiles_folder/.$file"
+    link_dest="$HOME/.$file"
 
-if [[ $1 == --force || $1 == -f ]]; then
-    doIt;
-else
-	read "response?This may overwrite existing files in your home directory. Are you sure? (y/n) ";
-	if [[ $response =~ ^[Yy]$ ]]; then
-		doIt;
-	fi;
-fi;
-unset doIt;
+    if [ -e "$link_dest" ] || [ -L "$link_dest" ]; then
+        echo "Removing existing link: $link_dest"
+        rm "$link_dest"
+    fi
 
-ln -s ~/Projects/silvergama/dotfiles/nvim/user ~/.config/nvim/lua/user
+    echo "Creating symbolic link: $link_dest"
+    ln -s "$dotfile" "$link_dest"
+done
+
+# custom user astrovim
+nvim_user="$HOME/.config/nvim/lua/user"
+if [ ! -L "$nvim_user" ]; then
+    ln -s "$dotfiles_folder/nvim/user" "$nvim_user"
+fi

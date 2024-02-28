@@ -12,7 +12,16 @@ else
     brew upgrade
 fi
 
-#Install ZSH
+#Install curl
+brew install curl
+
+# Install git
+brew install git
+
+# Install asdf
+brew install asdf
+
+# Install ZSH
 brew install zsh
 
 # install powerlevel10k
@@ -41,7 +50,10 @@ brew install tree
 brew install gh
 
 # Install vim
-brew install vim
+# brew install vim
+
+# Install NeoVim
+brew install neovim
 
 # Install font-fira-code
 brew tap homebrew/cask-fonts
@@ -54,7 +66,7 @@ brew install httpie
 brew install kubectl
 
 # Install DBeaver
-brew install --cask dbeaver-community
+# brew install --cask dbeaver-community
 
 # Install Spotify
 brew install --cask spotify

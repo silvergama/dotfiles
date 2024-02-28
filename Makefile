@@ -6,20 +6,20 @@ user-nick = $(USER)
 VIM_PATH = ~/.vim
 
 install: vim/clean
-	@make source
 	@make for_all_os
+	@make source
 
 for/linux:
-	bash for_linux.sh
+	zsh for_linux.sh
 
-for/macos:
-	bash for_macos.sh
+for/macos: install
+	zsh for_macos.sh
 
 for_all_os:
-	bash for_all_os.sh
+	zsh for_all_os.sh
 
 source:
-	bash bootstrap.sh -f
+	zsh bootstrap.sh
 
 vim/clean: 
 	rm -rf $(VIM_PATH)/backups
